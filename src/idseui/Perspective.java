@@ -1,7 +1,5 @@
 package idseui;
 
-import javax.swing.text.View;
-
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
