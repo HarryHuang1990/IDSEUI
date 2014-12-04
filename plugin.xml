@@ -19,5 +19,33 @@
             id="IDSEUI.perspective">
       </perspective>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="idseui.ViewSearchResult"
+            id="idse.ui.view.ViewSearchResult"
+            name="搜索结果"
+            restorable="true">
+      </view>
+      <view
+            class="idseui.ViewFileReader"
+            id="idse.ui.view.ViewFileReader"
+            name="文件信息"
+            restorable="true">
+      </view>
+      <view
+            class="idseui.ViewSetting"
+            id="idse.ui.view.ViewSetting"
+            name="配置"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.console.consoleFactories">
+      <consoleFactory
+            class="idseui.ViewConsole"
+            label="Output">
+      </consoleFactory>
+   </extension>
 
 </plugin>
