@@ -1,4 +1,0 @@
-IDSEUI
-======
-
-UI for IDSE
