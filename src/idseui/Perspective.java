@@ -12,13 +12,13 @@ public class Perspective implements IPerspectiveFactory {
 	public void createInitialLayout(IPageLayout layout) {
 		layout.setEditorAreaVisible(false);
 		layout.addView(ViewSearchResult.ID, IPageLayout.LEFT, 0.6f, layout.getEditorArea());
-		IFolderLayout rightFolder = layout.createFolder("assist.right.folder", IPageLayout.RIGHT, 0.4f, layout.getEditorArea());
+		String FOLDER_ID = "assist.right.folder";
+		IFolderLayout rightFolder = layout.createFolder(FOLDER_ID, IPageLayout.RIGHT, 0.4f, layout.getEditorArea());
 		rightFolder.addView(ViewFileReader.ID);
 		rightFolder.addView(ViewSetting.ID);
 		
 		// console
-		System.out.println("dfsdfsdfsdf"+rightFolder.getProperty("folderId"));
-		layout.addView(IConsoleConstants.ID_CONSOLE_VIEW, IPageLayout.BOTTOM, 0.3f, "assist.right.folder");
+		layout.addView(IConsoleConstants.ID_CONSOLE_VIEW, IPageLayout.BOTTOM, 0.3f, FOLDER_ID);
 		ViewConsole console = new ViewConsole();
 		console.openConsole();
 		

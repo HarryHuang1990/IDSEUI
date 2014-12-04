@@ -13,10 +13,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+import utitilies.Utilities;
 
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
@@ -39,9 +42,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 			@Override
 			protected Control createControl(Composite parent) {
 				Label icon = new Label(parent, SWT.NONE );
-				ImageDescriptor imageDes = AbstractUIPlugin.imageDescriptorFromPlugin("IDSEUI", "/icons/search16.png");
-				Image image = imageDes.createImage();
-				icon.setImage(image);
+				icon.setImage(Utilities.getImage("/icons/search16.png"));
 				return icon;
 			}
 		};
@@ -50,12 +51,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 			@Override
 			protected Control createControl(Composite parent) {
 				Text searchInput = new Text(parent, SWT.NONE | SWT.BORDER);
-				searchInput.setMessage("搜索你的本地资源                                                              ");
+				searchInput.setMessage("搜索你的本地资源                                                                                                        ");
 				return searchInput;
 			}
 		};
-		
-		
 		
 		toolbar.add(searchIcon);
 		toolbar.add(searchInputText);
