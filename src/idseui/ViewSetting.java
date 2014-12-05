@@ -1,6 +1,7 @@
 package idseui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -20,10 +21,20 @@ public class ViewSetting extends ViewPart {
 	
 	@Override
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new FillLayout());
+		parent.setLayout(new FormLayout());
 		
-		Composite composite = new Composite(parent, SWT.NONE);
+		ScrolledComposite scrolledComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.BORDER);
+		FormData scrolledCompositeData = new FormData();
+		scrolledCompositeData.left = new FormAttachment(0,0);
+		scrolledCompositeData.top = new FormAttachment(0,0);
+		scrolledCompositeData.right = new FormAttachment(100,0);
+		scrolledCompositeData.bottom = new FormAttachment(100,0);
+		scrolledComposite.setLayoutData(scrolledCompositeData);
+		
+		Composite composite = new Composite(scrolledComposite, SWT.NONE);
+		scrolledComposite.setContent(composite);
 		composite.setLayout(new FormLayout());
+		composite.setBounds(0, 0, 500, 1000);
 		/*
 		 *  index group
 		 */
@@ -35,6 +46,15 @@ public class ViewSetting extends ViewPart {
 		indexGroupFormData.left = new FormAttachment(0, ViewSetting.VIEW_PADDING);
 		indexGroupFormData.right = new FormAttachment(100, -ViewSetting.VIEW_PADDING); 
 		indexGroup.setLayoutData(indexGroupFormData);
+		// directories to index
+		
+		
+		// max size of pdf to index (KB)
+		
+		// max size of txt to index (KB)
+		
+		// max size of directory to index (files)
+		
 		
 		/*
 		 * knowledge mining
@@ -48,6 +68,25 @@ public class ViewSetting extends ViewPart {
 		KMGroupFormData.right = new FormAttachment(100, -ViewSetting.VIEW_PADDING); 
 		KMGroup.setLayoutData(KMGroupFormData);
 		
+		// user activity log file
+		
+		// min duration to divide user log(s)
+		
+		// min interval to divide user log(s)
+		
+		// similarity threshold to merge raw log cluster after dividing
+		
+		// KL threshold for topic pruning
+		
+		// Transfer lenth threshold between two files
+		
+		// Contributions factor of Topic Relation
+		
+		// Contribution factor of Task Relation
+		
+		// Contribution factor of Location Relation
+		
+		
 		/*
 		 * search result;
 		 */
@@ -59,6 +98,12 @@ public class ViewSetting extends ViewPart {
 		resultGroupFormData.left = new FormAttachment(0, ViewSetting.VIEW_PADDING);
 		resultGroupFormData.right = new FormAttachment(100, -ViewSetting.VIEW_PADDING); 
 		resultGroup.setLayoutData(resultGroupFormData);
+		
+		// Number of Result returned
+		
+		// Recommendation step
+		
+		// Number of Recommendation
 		
 	}
 
