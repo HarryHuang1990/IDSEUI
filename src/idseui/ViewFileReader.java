@@ -2,6 +2,7 @@ package idseui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
@@ -23,6 +24,7 @@ public class ViewFileReader extends ViewPart {
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout());
 		ScrolledComposite scrolledComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
+		scrolledComposite.setLayout(new FillLayout());
 		Composite composite = new Composite(scrolledComposite, SWT.NONE);
 		scrolledComposite.setContent(composite);
 		
@@ -107,8 +109,16 @@ public class ViewFileReader extends ViewPart {
 		openInDirectoryButtonFormData.width = 150;
 		openInDirectoryButton.setLayoutData(openInDirectoryButtonFormData);
 		
-		
-		
+		// 文件内容预览
+		Label abstractBox = new Label(composite, SWT.BORDER);
+		FormData abstractBoxFormData = new FormData();
+		abstractBoxFormData.top = new FormAttachment(icon, 10);
+		abstractBoxFormData.left = new FormAttachment(0, 0);
+		abstractBoxFormData.width = 5000;
+		abstractBoxFormData.height = 2000;
+		abstractBox.setLayoutData(abstractBoxFormData);
+		abstractBox.setText("XXXXXXXXXXXXXXXXXXXXXXXX\nXXXXXXXXXXXXXXXXXXXX\nXXXX");
+		abstractBox.setBackground(new Color(null, 255, 255, 255));
 		
 		
 		
