@@ -84,9 +84,6 @@ public class ViewSearchResult extends ViewPart {
 			}
 		}
 		
-		
-		
-		
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 	}
 
