@@ -30,7 +30,10 @@ public class ViewSearchResult extends ViewPart {
 		
 		
 		for(int i=0; i<20; i++){
-			Label separator = new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL |SWT.BORDER);
+			Label separator = new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL);
+			GridData separatorGridData = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+			separatorGridData.horizontalSpan = 6;
+			separator.setLayoutData(separatorGridData);
 			
 			Composite block = new Composite(composite, SWT.NONE);
 			GridLayout blockLayout = new GridLayout();
@@ -63,12 +66,22 @@ public class ViewSearchResult extends ViewPart {
 			openInDirectoryButton.setText("在文件夹中显示");
 			openInDirectoryButton.setLayoutData(buttonGridData);
 			
-			
 			//bottom-left: 空白填充
+			Label label = new Label(block, SWT.NONE);
 			
 			//bottom-right: 推荐列表
+			Composite recommendList = new Composite(block, SWT.NONE);
+			GridLayout recommendListLayout = new GridLayout();
+			recommendListLayout.numColumns = 2;
+			recommendList.setLayout(recommendListLayout);
 			
-			
+			for(int k=0; k<5; k++){
+				Label itemIcon = new Label(recommendList, SWT.NONE);
+				itemIcon.setImage(Utilities.getImage("/icons/pdf32.png"));
+				
+				Label itemName = new Label(recommendList, SWT.NONE);
+				itemName.setText("关于公务员出差报销差旅费的相关说明.pdf");
+			}
 		}
 		
 		
