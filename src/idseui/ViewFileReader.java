@@ -117,7 +117,7 @@ public class ViewFileReader extends ViewPart {
 		abstractBoxFormData.width = 5000;
 		abstractBoxFormData.height = 2000;
 		abstractBox.setLayoutData(abstractBoxFormData);
-		abstractBox.setText("XXXXXXXXXXXXXXXXXXXXXXXX\nXXXXXXXXXXXXXXXXXXXX\nXXXX");
+		abstractBox.setText("XXXXXXXXXXXXXXXXXXXXXXXX\nXXXXXXXXXXXXXXXXXXXX\nXXXX\n");
 		abstractBox.setBackground(new Color(null, 255, 255, 255));
 		
 		
