@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -53,12 +54,14 @@ public class ViewSearchResult extends ViewPart {
 			buttonBarLayout.numColumns = 2;
 			buttonBar.setLayout(buttonBarLayout);
 			
+			GridData buttonGridData = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
+			buttonGridData.widthHint = 150;
 			Button openFileButton = new Button(buttonBar, SWT.BORDER);
-
 			openFileButton.setText("打开文件");
-			
+			openFileButton.setLayoutData(buttonGridData);
 			Button openInDirectoryButton = new Button(buttonBar, SWT.BORDER);
 			openInDirectoryButton.setText("在文件夹中显示");
+			openInDirectoryButton.setLayoutData(buttonGridData);
 			
 			
 			//bottom-left: 空白填充
