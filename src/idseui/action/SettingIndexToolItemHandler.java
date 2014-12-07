@@ -23,9 +23,8 @@ public class SettingIndexToolItemHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		// TODO Auto-generated method stub
-		DialogSettingIndex setting = new DialogSettingIndex(null);
-		setting.open();
+		DialogSettingIndex dialogSettingIndex = new DialogSettingIndex(null);
+		dialogSettingIndex.open();
 		return null;
 	}
 

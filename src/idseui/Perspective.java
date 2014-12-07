@@ -13,7 +13,6 @@ public class Perspective implements IPerspectiveFactory {
 		String FOLDER_ID = "assist.right.folder";
 		IFolderLayout rightFolder = layout.createFolder(FOLDER_ID, IPageLayout.RIGHT, 0.4f, layout.getEditorArea());
 		rightFolder.addView(ViewFileReader.ID);
-		rightFolder.addView(ViewSetting.ID);
 		
 		// console
 		layout.addView(IConsoleConstants.ID_CONSOLE_VIEW, IPageLayout.BOTTOM, 0.3f, FOLDER_ID);
@@ -22,6 +21,5 @@ public class Perspective implements IPerspectiveFactory {
 		
 		layout.getViewLayout(ViewSearchResult.ID).setCloseable(false);
 		layout.getViewLayout(ViewFileReader.ID).setCloseable(false);
-		layout.getViewLayout(ViewSetting.ID).setCloseable(false);
 	}
 }

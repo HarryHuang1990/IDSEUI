@@ -1,5 +1,7 @@
 package idseui.action;
 
+import idseui.DialogSettingResult;
+
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
@@ -22,8 +24,8 @@ public class SettingResultToolItemHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		// TODO Auto-generated method stub
-		MessageDialog.openInformation(null, "result", "result");
+		DialogSettingResult dialogSettingResult = new DialogSettingResult(null);
+		dialogSettingResult.open();
 		return null;
 	}
 

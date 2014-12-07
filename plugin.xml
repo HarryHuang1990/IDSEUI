@@ -33,12 +33,6 @@
             name="文件信息"
             restorable="true">
       </view>
-      <view
-            class="idseui.ViewSetting"
-            id="idse.ui.view.ViewSetting"
-            name="配置"
-            restorable="true">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.console.consoleFactories">
