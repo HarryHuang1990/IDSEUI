@@ -50,24 +50,30 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
+            defaultHandler="idseui.action.IndexToolItemHandler"
             id="IDSEUI.command.index"
             name="索引">
       </command>
       <command
+            defaultHandler="idseui.action.SettingIndexToolItemHandler"
             id="IDSEUI.command.setting"
             name="配置">
       </command>
-   </extension>
-   <extension
-         point="org.eclipse.ui.handlers">
-      <handler
-            class="idseui.action.IndexToolItemHandler"
-            commandId="IDSEUI.command.index">
-      </handler>
-      <handler
-            class="idseui.action.SettingToolItemHandler"
-            commandId="IDSEUI.command.setting">
-      </handler>
+      <command
+            defaultHandler="idseui.action.SettingIndexToolItemHandler"
+            id="IDSEUI.command.setting.index"
+            name="配置索引参数">
+      </command>
+      <command
+            defaultHandler="idseui.action.SettingKnowledgeToolItemHandler"
+            id="IDSEUI.command.setting.knowledge"
+            name="配置知识挖掘参数">
+      </command>
+      <command
+            defaultHandler="idseui.action.SettingResultToolItemHandler"
+            id="IDSEUI.command.setting.result"
+            name="配置搜索结果参数">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -93,9 +99,28 @@
                   commandId="IDSEUI.command.setting"
                   icon="icons/setting16.png"
                   label="配置"
-                  style="push">
+                  style="pulldown">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:IDSEUI.command.setting">
+         <command
+               commandId="IDSEUI.command.setting.index"
+               label="配置索引参数"
+               style="push">
+         </command>
+         <command
+               commandId="IDSEUI.command.setting.knowledge"
+               label="配置知识挖掘参数"
+               style="push">
+         </command>
+         <command
+               commandId="IDSEUI.command.setting.result"
+               label="配置搜索结果参数"
+               style="push">
+         </command>
       </menuContribution>
    </extension>
 
