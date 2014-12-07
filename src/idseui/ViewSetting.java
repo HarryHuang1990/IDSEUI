@@ -48,7 +48,6 @@ public class ViewSetting extends ViewPart {
 		indexGroup.setLayoutData(indexGroupFormData);
 		// directories to index
 		
-		
 		// max size of pdf to index (KB)
 		
 		// max size of txt to index (KB)
