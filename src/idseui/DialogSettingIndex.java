@@ -38,9 +38,9 @@ public class DialogSettingIndex extends TitleAreaDialog {
 	protected Control createContents(Composite parent) {
 		Control contents = super.createContents(parent);
 		
-		super.setTitle("åˆ›å»ºï¼Œç®¡ç†ï¼Œæ‰§è¡Œç´¢å¼•é…ç½®");
+		super.setTitle("´´½¨£¬¹ÜÀí£¬Ö´ĞĞË÷ÒıÅäÖÃ");
 		
-		super.setMessage("åˆ›å»ºç´¢å¼•é…ç½®ç´¢å¼•æœ¬åœ°æ–‡ä»¶");
+		super.setMessage("´´½¨Ë÷ÒıÅäÖÃË÷Òı±¾µØÎÄ¼ş");
 		
 		super.setTitleImage(this.image);
 				
@@ -57,7 +57,7 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		directories2indexComposite.setLayout(new FormLayout());	
 		
 		Label directories2indexLabel = new Label(directories2indexComposite, SWT.NONE);
-		directories2indexLabel.setText("ç´¢å¼•ç›®å½•ï¼š");
+		directories2indexLabel.setText("Ë÷ÒıÄ¿Â¼£º");
 		FormData directories2indexLabelData = new FormData();
 		directories2indexLabelData.top = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING);
 		directories2indexLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
@@ -76,7 +76,7 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		maxPDFSizeComposite.setLayout(new FormLayout());
 		
 		Label maxPDFSizeLabel = new Label(maxPDFSizeComposite, SWT.NONE);
-		maxPDFSizeLabel.setText("PDFå¤§å°ä¸Šé™(KB)ï¼š");
+		maxPDFSizeLabel.setText("PDF´óĞ¡ÉÏÏŞ(KB)£º");
 		FormData maxPDFSizeLabelData = new FormData();
 		maxPDFSizeLabelData.top = new FormAttachment(0, DialogSettingIndex.ADJACENT_SPACING);
 		maxPDFSizeLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
@@ -95,7 +95,7 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		maxTXTSizeComposite.setLayout(new FormLayout());
 		
 		Label maxTXTSizeLabel = new Label(maxTXTSizeComposite, SWT.NONE);
-		maxTXTSizeLabel.setText("TXTå¤§å°ä¸Šé™(KB)ï¼š");
+		maxTXTSizeLabel.setText("TXT´óĞ¡ÉÏÏŞ(KB)£º");
 		FormData maxTXTSizeLabelData = new FormData();
 		maxTXTSizeLabelData.top = new FormAttachment(0, DialogSettingIndex.ADJACENT_SPACING);
 		maxTXTSizeLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
@@ -114,7 +114,7 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		maxDirectorySizeComposite.setLayout(new FormLayout());
 		
 		Label maxDirectorySizeLabel = new Label(maxDirectorySizeComposite, SWT.NONE);
-		maxDirectorySizeLabel.setText("æ–‡ä»¶å¤¹æ–‡ä»¶æ•°ä¸Šé™ï¼š");
+		maxDirectorySizeLabel.setText("ÎÄ¼ş¼ĞÎÄ¼şÊıÉÏÏŞ£º");
 		FormData maxDirectorySizeLabelData = new FormData();
 		maxDirectorySizeLabelData.top = new FormAttachment(0, DialogSettingIndex.ADJACENT_SPACING);
 		maxDirectorySizeLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);

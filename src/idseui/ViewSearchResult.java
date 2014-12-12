@@ -39,18 +39,18 @@ public class ViewSearchResult extends ViewPart {
 			GridLayout blockLayout = new GridLayout();
 			blockLayout.numColumns = 2;
 			block.setLayout(blockLayout);
-			//top-left: å›¾ç‰‡
+			//top-left: Í¼Æ¬
 			Label icon = new Label(block, SWT.NONE);
 			icon.setImage(Utilities.getImage("/icons/docx_mac64.png"));
-			//top-right: æ–‡ä»¶å + æŒ‰é’®
+			//top-right: ÎÄ¼şÃû + °´Å¥
 			Composite info = new Composite(block, SWT.NONE);
 			GridLayout infoLayout = new GridLayout();
 			infoLayout.numColumns = 1;
 			info.setLayout(infoLayout);
 			
 			Label filename = new Label(info, SWT.NONE);
-			filename.setText("æ€»ä½“éƒ¨å…³äºæ˜¥èŠ‚æœŸé—´å‘˜å·¥æ”¾å‡åŠé›†ä½“è´­ä¹°ç«è½¦ç¥¨çš„é€šçŸ¥.doc");
-			filename.setFont(new Font(null, "é»‘ä½“", 12, SWT.NORMAL));
+			filename.setText("×ÜÌå²¿¹ØÓÚ´º½ÚÆÚ¼äÔ±¹¤·Å¼Ù¼°¼¯Ìå¹ºÂò»ğ³µÆ±µÄÍ¨Öª.doc");
+			filename.setFont(new Font(null, "ºÚÌå", 12, SWT.NORMAL));
 			
 			Composite buttonBar = new Composite(info, SWT.NONE);
 			GridLayout buttonBarLayout = new GridLayout();
@@ -60,16 +60,16 @@ public class ViewSearchResult extends ViewPart {
 			GridData buttonGridData = new GridData(SWT.FILL, SWT.FILL, false, false, 1, 1);
 			buttonGridData.widthHint = 150;
 			Button openFileButton = new Button(buttonBar, SWT.BORDER);
-			openFileButton.setText("æ‰“å¼€æ–‡ä»¶");
+			openFileButton.setText("´ò¿ªÎÄ¼ş");
 			openFileButton.setLayoutData(buttonGridData);
 			Button openInDirectoryButton = new Button(buttonBar, SWT.BORDER);
-			openInDirectoryButton.setText("åœ¨æ–‡ä»¶å¤¹ä¸­æ˜¾ç¤º");
+			openInDirectoryButton.setText("ÔÚÎÄ¼ş¼ĞÖĞÏÔÊ¾");
 			openInDirectoryButton.setLayoutData(buttonGridData);
 			
-			//bottom-left: ç©ºç™½å¡«å……
+			//bottom-left: ¿Õ°×Ìî³ä
 			Label label = new Label(block, SWT.NONE);
 			
-			//bottom-right: æ¨èåˆ—è¡¨
+			//bottom-right: ÍÆ¼öÁĞ±í
 			Composite recommendList = new Composite(block, SWT.NONE);
 			GridLayout recommendListLayout = new GridLayout();
 			recommendListLayout.numColumns = 2;
@@ -80,7 +80,7 @@ public class ViewSearchResult extends ViewPart {
 				itemIcon.setImage(Utilities.getImage("/icons/pdf32.png"));
 				
 				Label itemName = new Label(recommendList, SWT.NONE);
-				itemName.setText("å…³äºå…¬åŠ¡å‘˜å‡ºå·®æŠ¥é”€å·®æ—…è´¹çš„ç›¸å…³è¯´æ˜.pdf");
+				itemName.setText("¹ØÓÚ¹«ÎñÔ±³ö²î±¨Ïú²îÂÃ·ÑµÄÏà¹ØËµÃ÷.pdf");
 			}
 		}
 		

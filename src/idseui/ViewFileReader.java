@@ -30,70 +30,70 @@ public class ViewFileReader extends ViewPart {
 		
 		composite.setLayout(new FormLayout());
 		
-		// å›¾æ ‡
+		// Í¼±ê
 		Label icon = new Label(composite, SWT.NONE);
 		icon.setImage(Utilities.getImage("/icons/text160.png"));
 		FormData iconFormData = new FormData();
 		iconFormData.top = new FormAttachment(0, 5);
 		iconFormData.left = new FormAttachment(0, 5);
 		icon.setLayoutData(iconFormData);
-		// æ–‡ä»¶å
+		// ÎÄ¼şÃû
 		Label filename = new Label(composite, SWT.NONE);
-		filename.setText("å…³äºååŠ©åšå¥½æ¨èåº”å±Šä¼˜ç§€é«˜æ ¡æ¯•ä¸šç”Ÿåˆ°åŒ—äº¬å¸‚åŸºå±‚åŸ¹å…»é”»ç‚¼å·¥ä½œçš„é€šçŸ¥.txt");
-		filename.setFont(new Font(null, "é»‘ä½“", 14, SWT.BOLD));
+		filename.setText("¹ØÓÚĞ­Öú×öºÃÍÆ¼öÓ¦½ìÓÅĞã¸ßĞ£±ÏÒµÉúµ½±±¾©ÊĞ»ù²ãÅàÑø¶ÍÁ¶¹¤×÷µÄÍ¨Öª.txt");
+		filename.setFont(new Font(null, "ºÚÌå", 14, SWT.BOLD));
 		FormData filenameFormData = new FormData();
 		filenameFormData.top = new FormAttachment(0, 5);
 		filenameFormData.left = new FormAttachment(icon, 5);
 		filename.setLayoutData(filenameFormData);
 		
-		// æ—¥æœŸ
+		// Ê±¼ä
 		Label filedate = new Label(composite, SWT.NONE);
-		filedate.setText("2014å¹´09æœˆ04æ—¥, 19æ—¶28åˆ†23ç§’");
-		filedate.setFont(new Font(null, "é»‘ä½“", 12, SWT.NORMAL));
+		filedate.setText("2014Äê09ÔÂ04ÈÕ, 19Ê±28·Ö23Ãë");
+		filedate.setFont(new Font(null, "ºÚÌå", 12, SWT.NORMAL));
 		FormData filedateFormData = new FormData();
 		filedateFormData.top = new FormAttachment(filename, 5);
 		filedateFormData.left = new FormAttachment(icon, 5);
 		filedate.setLayoutData(filedateFormData);
 		
-		// æ ¼å¼
+		//¸ñÊ½
 		Label fileformatLabel = new Label(composite, SWT.NONE);
-		fileformatLabel.setText("æ ¼å¼ï¼š");
-		fileformatLabel.setFont(new Font(null, "é»‘ä½“", 10, SWT.BOLD));
+		fileformatLabel.setText("¸ñÊ½£º");
+		fileformatLabel.setFont(new Font(null, "ºÚÌå", 10, SWT.BOLD));
 		FormData fileformatLabelFormData = new FormData();
 		fileformatLabelFormData.top = new FormAttachment(filedate, 10);
 		fileformatLabelFormData.left = new FormAttachment(icon, 40);
 		fileformatLabel.setLayoutData(fileformatLabelFormData);
 		
 		Label fileformatText = new Label(composite, SWT.NONE);
-		fileformatText.setText("txtæ–‡ä»¶");
-		fileformatText.setFont(new Font(null, "é»‘ä½“", 10, SWT.NORMAL));
+		fileformatText.setText("txtÎÄ¼ş");
+		fileformatText.setFont(new Font(null, "ºÚÌå", 10, SWT.NORMAL));
 		FormData fileformatTextFormData = new FormData();
 		fileformatTextFormData.top = new FormAttachment(filedate, 10);
 		fileformatTextFormData.left = new FormAttachment(fileformatLabel, 5);
 		fileformatText.setLayoutData(fileformatTextFormData);
 		
 		
-		// å¤§å°
+		// ´óĞ¡
 		Label filesizeLabel = new Label(composite, SWT.NONE);
-		filesizeLabel.setText("å¤§å°ï¼š");
-		filesizeLabel.setFont(new Font(null, "é»‘ä½“", 10, SWT.BOLD));
+		filesizeLabel.setText("´óĞ¡£º");
+		filesizeLabel.setFont(new Font(null, "ºÚÌå", 10, SWT.BOLD));
 		FormData filesizeLabelFormData = new FormData();
 		filesizeLabelFormData.top = new FormAttachment(fileformatLabel, 5);
 		filesizeLabelFormData.left = new FormAttachment(icon, 40);
 		filesizeLabel.setLayoutData(filesizeLabelFormData);
 		
 		Label filesizeText = new Label(composite, SWT.NONE);
-		filesizeText.setText("123å­—èŠ‚");
-		filesizeText.setFont(new Font(null, "é»‘ä½“", 10, SWT.NORMAL));
+		filesizeText.setText("123×Ö½Ú");
+		filesizeText.setFont(new Font(null, "ºÚÌå", 10, SWT.NORMAL));
 		FormData filesizeTextFormData = new FormData();
 		filesizeTextFormData.top = new FormAttachment(fileformatLabel, 5);
 		filesizeTextFormData.left = new FormAttachment(filesizeLabel, 5);
 		filesizeText.setLayoutData(filesizeTextFormData);
 		
 		
-		// æŒ‰é’®
+		// °´Å¥
 		Button openFileButton = new Button(composite, SWT.BORDER);
-		openFileButton.setText("æ‰“å¼€æ–‡ä»¶");
+		openFileButton.setText("´ò¿ªÎÄ¼ş");
 		FormData openFileButtonFormData = new FormData();
 		openFileButtonFormData.top = new FormAttachment(filesizeLabel, 20);
 		openFileButtonFormData.left = new FormAttachment(icon, 5);
@@ -102,14 +102,14 @@ public class ViewFileReader extends ViewPart {
 		
 		
 		Button openInDirectoryButton = new Button(composite, SWT.BORDER);
-		openInDirectoryButton.setText("æ‰“å¼€æ–‡ä»¶");
+		openInDirectoryButton.setText("ÔÚÎÄ¼ş¼ĞÖĞ´ò¿ª");
 		FormData openInDirectoryButtonFormData = new FormData();
 		openInDirectoryButtonFormData.top = new FormAttachment(filesizeLabel, 20);
 		openInDirectoryButtonFormData.left = new FormAttachment(openFileButton, 5);
 		openInDirectoryButtonFormData.width = 150;
 		openInDirectoryButton.setLayoutData(openInDirectoryButtonFormData);
 		
-		// æ–‡ä»¶å†…å®¹é¢„è§ˆ
+		// ÕªÒª
 		Label abstractBox = new Label(composite, SWT.BORDER);
 		FormData abstractBoxFormData = new FormData();
 		abstractBoxFormData.top = new FormAttachment(icon, 10);
@@ -117,10 +117,8 @@ public class ViewFileReader extends ViewPart {
 		abstractBoxFormData.width = 5000;
 		abstractBoxFormData.height = 2000;
 		abstractBox.setLayoutData(abstractBoxFormData);
-		abstractBox.setText("XXXXXXXXXXXXXXXXXXXXXXXX\nXXXXXXXXXXXXXXXXXXXX\nXXXX\n");
+		abstractBox.setText("Experiments as Research Validation - Have We Gone too Far?\nJeffrey D. Ullman, July 9, 2013\nI recently submitted a paper to VLDB, and when I got the reviews back, I noticed that\nthe review form now has a question referees are required to answer, about whether the\nexperiments were well carried out, with choices like ¡°believable¡± and ¡°not believable.¡±\nThe reviewers had a bit of trouble with that question, because my paper had no\nexperiments; it was a paper about computational complexity of MapReduce algorithms.\nTwo of the reviewers said the nonexistent experiments were not believable, which is\nwrong ¨C you have to see something to disbelieve it.\n");
 		abstractBox.setBackground(new Color(null, 255, 255, 255));
-		
-		
 		
 		composite.setSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 	}

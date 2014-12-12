@@ -51,7 +51,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 			@Override
 			protected Control createControl(Composite parent) {
 				Text searchInput = new Text(parent, SWT.NONE | SWT.BORDER);
-				searchInput.setMessage("鎼滅储浣犵殑鏈湴璧勬簮                                                                                                        ");
+				searchInput.setMessage("搜索你的本地资源                                                                                                        ");
 				return searchInput;
 			}
 		};

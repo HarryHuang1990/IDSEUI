@@ -38,9 +38,9 @@ public class DialogSettingResult extends TitleAreaDialog {
 	protected Control createContents(Composite parent) {
 		Control contents = super.createContents(parent);
 		
-		super.setTitle("åˆ›å»ºï¼Œç®¡ç†ï¼Œæ‰§è¡Œæœç´¢ç»“æœé…ç½®");
+		super.setTitle("´´½¨£¬¹ÜÀí£¬Ö´ĞĞËÑË÷½á¹ûÅäÖÃ");
 		
-		super.setMessage("åˆ›å»ºæœç´¢ç»“æœç›¸å…³å‚æ•°çš„é…ç½®");
+		super.setMessage("´´½¨ËÑË÷½á¹ûÏà¹Ø²ÎÊıµÄÅäÖÃ");
 		
 		super.setTitleImage(this.image);
 				
@@ -57,7 +57,7 @@ public class DialogSettingResult extends TitleAreaDialog {
 		resultNumberComposite.setLayout(new FormLayout());	
 		
 		Label resultNumberLabel = new Label(resultNumberComposite, SWT.NONE);
-		resultNumberLabel.setText("è¿”å›æœç´¢ç»“æœæ•°ï¼š");
+		resultNumberLabel.setText("·µ»ØËÑË÷½á¹ûÊı£º");
 		FormData resultNumberLabelData = new FormData();
 		resultNumberLabelData.top = new FormAttachment(0, DialogSettingResult.GROUP_PADDING);
 		resultNumberLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
@@ -76,7 +76,7 @@ public class DialogSettingResult extends TitleAreaDialog {
 		recommendStepComposite.setLayout(new FormLayout());
 		
 		Label recommendStepLabel = new Label(recommendStepComposite, SWT.NONE);
-		recommendStepLabel.setText("æ¨èæ­¥é•¿ï¼š");
+		recommendStepLabel.setText("ÍÆ¼ö²½³¤£º");
 		FormData recommendStepLabelData = new FormData();
 		recommendStepLabelData.top = new FormAttachment(0, DialogSettingResult.ADJACENT_SPACING);
 		recommendStepLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
@@ -95,7 +95,7 @@ public class DialogSettingResult extends TitleAreaDialog {
 		RecommendNumberComposite.setLayout(new FormLayout());
 		
 		Label RecommendNumberLabel = new Label(RecommendNumberComposite, SWT.NONE);
-		RecommendNumberLabel.setText("æ¨èç»“æœæ•°ï¼š");
+		RecommendNumberLabel.setText("ÍÆ¼ö½á¹ûÊı£º");
 		FormData RecommendNumberLabelData = new FormData();
 		RecommendNumberLabelData.top = new FormAttachment(0, DialogSettingResult.ADJACENT_SPACING);
 		RecommendNumberLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);

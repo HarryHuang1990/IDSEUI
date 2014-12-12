@@ -38,9 +38,9 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 	protected Control createContents(Composite parent) {
 		Control contents = super.createContents(parent);
 		
-		super.setTitle("åˆ›å»ºï¼Œç®¡ç†ï¼Œæ‰§è¡ŒçŸ¥è¯†æŒ–æ˜é…ç½®");
+		super.setTitle("´´½¨£¬¹ÜÀí£¬Ö´ĞĞÖªÊ¶ÍÚ¾òÅäÖÃ");
 		
-		super.setMessage("é…ç½®çŸ¥è¯†æŒ–æ˜æ‰€éœ€å‚æ•°");
+		super.setMessage("ÅäÖÃÖªÊ¶ÍÚ¾òËùĞè²ÎÊı");
 		
 		super.setTitleImage(this.image);
 				
@@ -57,7 +57,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		userActivityComposite.setLayout(new FormLayout());	
 		
 		Label userActivityLabel = new Label(userActivityComposite, SWT.NONE);
-		userActivityLabel.setText("ç”¨æˆ·æ—¥å¿—ç›®å½•ï¼š");
+		userActivityLabel.setText("ÓÃ»§ÈÕÖ¾Ä¿Â¼£º");
 		FormData userActivityLabelData = new FormData();
 		userActivityLabelData.top = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING);
 		userActivityLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -76,7 +76,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		minDurationComposite.setLayout(new FormLayout());
 		
 		Label minDurationLabel = new Label(minDurationComposite, SWT.NONE);
-		minDurationLabel.setText("æœ€çŸ­æœ‰æ•ˆè¡Œä¸ºæ—¶é•¿ï¼š");
+		minDurationLabel.setText("×î¶ÌÓĞĞ§ĞĞÎªÊ±³¤£º");
 		FormData minDurationLabelData = new FormData();
 		minDurationLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		minDurationLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -95,7 +95,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		minIntervalComposite.setLayout(new FormLayout());
 		
 		Label minIntervalLabel = new Label(minIntervalComposite, SWT.NONE);
-		minIntervalLabel.setText("æ–°ä»»åŠ¡å¯åŠ¨æœ€å°é—´éš”ï¼š");
+		minIntervalLabel.setText("ĞÂÈÎÎñÆô¶¯×îĞ¡¼ä¸ô£º");
 		FormData minIntervalLabelData = new FormData();
 		minIntervalLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		minIntervalLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -114,7 +114,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		similarThresholdComposite.setLayout(new FormLayout());
 		
 		Label similarThresholdLabel = new Label(similarThresholdComposite, SWT.NONE);
-		similarThresholdLabel.setText("taskç›¸ä¼¼åº¦é˜ˆå€¼ï¼š");
+		similarThresholdLabel.setText("taskÏàËÆ¶ÈãĞÖµ£º");
 		FormData similarThresholdLabelData = new FormData();
 		similarThresholdLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		similarThresholdLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -133,7 +133,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		KLThresholdComposite.setLayout(new FormLayout());
 		
 		Label KLThresholdLabel = new Label(KLThresholdComposite, SWT.NONE);
-		KLThresholdLabel.setText("KLæ•£åº¦é˜ˆå€¼ï¼š");
+		KLThresholdLabel.setText("KLÉ¢¶ÈãĞÖµ£º");
 		FormData KLThresholdLabelData = new FormData();
 		KLThresholdLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		KLThresholdLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -152,7 +152,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		TransferLengthComposite.setLayout(new FormLayout());
 		
 		Label TransferLengthLabel = new Label(TransferLengthComposite, SWT.NONE);
-		TransferLengthLabel.setText("è½¬ç§»è·ç¦»é˜ˆå€¼ï¼š");
+		TransferLengthLabel.setText("×ªÒÆ¾àÀëãĞÖµ£º");
 		FormData TransferLengthLabelData = new FormData();
 		TransferLengthLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		TransferLengthLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -171,7 +171,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		topicFactorComposite.setLayout(new FormLayout());
 		
 		Label topicFactorLabel = new Label(topicFactorComposite, SWT.NONE);
-		topicFactorLabel.setText("Topicå…³ç³»è´¡çŒ®å› å­ï¼š");
+		topicFactorLabel.setText("Topic¹ØÏµ¹±Ï×Òò×Ó£º");
 		FormData topicFactorLabelData = new FormData();
 		topicFactorLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		topicFactorLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -190,7 +190,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		TaskFactorComposite.setLayout(new FormLayout());
 		
 		Label TaskFactorLabel = new Label(TaskFactorComposite, SWT.NONE);
-		TaskFactorLabel.setText("Taskå…³ç³»è´¡çŒ®å› å­ï¼š");
+		TaskFactorLabel.setText("Task¹ØÏµ¹±Ï×Òò×Ó£º");
 		FormData TaskFactorLabelData = new FormData();
 		TaskFactorLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		TaskFactorLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
@@ -209,7 +209,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		LocationFactorComposite.setLayout(new FormLayout());
 		
 		Label LocationFactorLabel = new Label(LocationFactorComposite, SWT.NONE);
-		LocationFactorLabel.setText("Locationå…³ç³»è´¡çŒ®é“¶å­ï¼š");
+		LocationFactorLabel.setText("Location¹ØÏµ¹±Ï×Òø×Ó£º");
 		FormData LocationFactorLabelData = new FormData();
 		LocationFactorLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		LocationFactorLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
