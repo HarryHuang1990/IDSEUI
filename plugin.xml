@@ -7,7 +7,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="idseui.Application">
+               class="cn.iscas.idse.ui.Application">
          </run>
       </application>
    </extension>
@@ -15,20 +15,20 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="RCP Perspective"
-            class="idseui.Perspective"
+            class="cn.iscas.idse.ui.Perspective"
             id="IDSEUI.perspective">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="idseui.ViewSearchResult"
+            class="cn.iscas.idse.ui.ViewSearchResult"
             id="idse.ui.view.ViewSearchResult"
             name="搜索结果"
             restorable="true">
       </view>
       <view
-            class="idseui.ViewFileReader"
+            class="cn.iscas.idse.ui.ViewFileReader"
             id="idse.ui.view.ViewFileReader"
             name="文件信息"
             restorable="true">
@@ -37,34 +37,34 @@
    <extension
          point="org.eclipse.ui.console.consoleFactories">
       <consoleFactory
-            class="idseui.ViewConsole"
+            class="cn.iscas.idse.ui.ViewConsole"
             label="Output">
       </consoleFactory>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="idseui.action.IndexToolItemHandler"
+            defaultHandler="cn.iscas.idse.ui.action.IndexToolItemHandler"
             id="IDSEUI.command.index"
             name="索引">
       </command>
       <command
-            defaultHandler="idseui.action.SettingIndexToolItemHandler"
+            defaultHandler="cn.iscas.idse.ui.action.SettingIndexToolItemHandler"
             id="IDSEUI.command.setting"
             name="配置">
       </command>
       <command
-            defaultHandler="idseui.action.SettingIndexToolItemHandler"
+            defaultHandler="cn.iscas.idse.ui.action.SettingIndexToolItemHandler"
             id="IDSEUI.command.setting.index"
             name="配置索引参数">
       </command>
       <command
-            defaultHandler="idseui.action.SettingKnowledgeToolItemHandler"
+            defaultHandler="cn.iscas.idse.ui.action.SettingKnowledgeToolItemHandler"
             id="IDSEUI.command.setting.knowledge"
             name="配置知识挖掘参数">
       </command>
       <command
-            defaultHandler="idseui.action.SettingResultToolItemHandler"
+            defaultHandler="cn.iscas.idse.ui.action.SettingResultToolItemHandler"
             id="IDSEUI.command.setting.result"
             name="配置搜索结果参数">
       </command>
