@@ -14,8 +14,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
 import cn.iscas.idse.search.ResultBean;
+import cn.iscas.idse.ui.action.OpenSelectionListener;
+import cn.iscas.idse.ui.action.ResultReviewListener;
 import cn.iscas.idse.ui.bean.IconSize;
-import cn.iscas.idse.ui.bean.IconType;
+import cn.iscas.idse.ui.bean.FileType;
+import cn.iscas.idse.ui.bean.OpenMode;
 import utitilies.IconSelector;
 
 public class ViewSearchResult extends ViewPart {
@@ -47,7 +50,9 @@ public class ViewSearchResult extends ViewPart {
 			block.setLayout(blockLayout);
 			//top-left: 图片
 			Label icon = new Label(block, SWT.NONE);
-			icon.setImage(IconSelector.getImage(IconSize.SIZE64, IconType.DOC));
+			icon.setImage(IconSelector.getImage(IconSize.SIZE64, FileType.DOC));
+//			icon.addMouseListener();
+			
 			//top-right: 文件名 + 按钮
 			Composite info = new Composite(block, SWT.NONE);
 			GridLayout infoLayout = new GridLayout();
@@ -83,7 +88,7 @@ public class ViewSearchResult extends ViewPart {
 			
 			for(int k=0; k<5; k++){
 				Label itemIcon = new Label(recommendList, SWT.NONE);
-				itemIcon.setImage(IconSelector.getImage(IconSize.SIZE32, IconType.DOC));
+				itemIcon.setImage(IconSelector.getImage(IconSize.SIZE32, FileType.DOC));
 				
 				Label itemName = new Label(recommendList, SWT.NONE);
 				itemName.setText("关于公务员出差报销差旅费的相关说明.pdf");
@@ -96,11 +101,18 @@ public class ViewSearchResult extends ViewPart {
 		ViewManager.register(ViewSearchResult.ID, this);
 	}
 	
+	/**
+	 * 清空搜索结果面板
+	 */
 	public void clear(){
 		this.composite.dispose();
 		System.out.println(this.composite);
 	}
 	
+	/**
+	 * 加载搜索结果列表到搜索结果面板
+	 * @param resultList	搜索结果列表
+	 */
 	public void addResultList(ArrayList<ResultBean> resultList){
 		this.composite = new Composite(this.scrolledComposite, SWT.NONE);
 		this.scrolledComposite.setContent(this.composite);
@@ -118,7 +130,10 @@ public class ViewSearchResult extends ViewPart {
 		this.composite.redraw();
 		this.composite.update();
 	}
-	
+	/**
+	 * 加载单个搜索结果项
+	 * @param bean 单个搜索结果
+	 */
 	public void addResultItem(ResultBean bean){
 		
 		Label separator = new Label(this.composite, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -133,6 +148,7 @@ public class ViewSearchResult extends ViewPart {
 		//top-left: 图片
 		Label icon = new Label(block, SWT.NONE);
 		icon.setImage(IconSelector.getImage(bean.getFile(), IconSize.SIZE64));
+		icon.addMouseListener(new ResultReviewListener(bean));
 		//top-right: 文件名 + 按钮
 		Composite info = new Composite(block, SWT.NONE);
 		GridLayout infoLayout = new GridLayout();
@@ -142,6 +158,7 @@ public class ViewSearchResult extends ViewPart {
 		Label filename = new Label(info, SWT.NONE);
 		filename.setText(bean.getFile());
 		filename.setFont(new Font(null, "黑体", 12, SWT.NORMAL));
+		filename.addMouseListener(new ResultReviewListener(bean));
 		
 		Composite buttonBar = new Composite(info, SWT.NONE);
 		GridLayout buttonBarLayout = new GridLayout();
@@ -153,9 +170,13 @@ public class ViewSearchResult extends ViewPart {
 		Button openFileButton = new Button(buttonBar, SWT.BORDER);
 		openFileButton.setText("打开文件");
 		openFileButton.setLayoutData(buttonGridData);
+		openFileButton.addSelectionListener(new OpenSelectionListener(bean, OpenMode.FILE));
+		
+		
 		Button openInDirectoryButton = new Button(buttonBar, SWT.BORDER);
 		openInDirectoryButton.setText("在文件夹中显示");
 		openInDirectoryButton.setLayoutData(buttonGridData);
+		openInDirectoryButton.addSelectionListener(new OpenSelectionListener(bean, OpenMode.DIRECTORY));
 		
 		//bottom-left: 空白填充
 		Label label = new Label(block, SWT.NONE);
@@ -169,9 +190,11 @@ public class ViewSearchResult extends ViewPart {
 		for(ResultBean recBean : bean.getRecommends()){
 			Label itemIcon = new Label(recommendList, SWT.NONE);
 			itemIcon.setImage(IconSelector.getImage(recBean.getFile(), IconSize.SIZE32));
+			itemIcon.addMouseListener(new ResultReviewListener(recBean));
 			
 			Label itemName = new Label(recommendList, SWT.NONE);
 			itemName.setText(recBean.getFile());
+			itemName.addMouseListener(new ResultReviewListener(recBean));
 		}
 		
 	}

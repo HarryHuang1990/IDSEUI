@@ -16,12 +16,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.ui.bean.IconSize;
-import cn.iscas.idse.ui.bean.IconType;
+import cn.iscas.idse.ui.bean.FileType;
 import utitilies.IconSelector;
 
 public class DialogSettingIndex extends TitleAreaDialog {
 	
-	private Image image = IconSelector.getImage(IconSize.SIZE80, IconType.DOC);
+	private Image image = IconSelector.getImage(IconSize.SIZE80, FileType.DOC);
 	public static int GROUP_PADDING = 5;
 	public static int INDENT_SPACING = 170;
 	public static int ADJACENT_SPACING = 12;
