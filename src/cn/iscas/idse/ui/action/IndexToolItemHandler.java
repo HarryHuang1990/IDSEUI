@@ -4,6 +4,9 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.commands.IHandlerListener;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Shell;
 
 public class IndexToolItemHandler implements IHandler {
 
@@ -22,6 +25,9 @@ public class IndexToolItemHandler implements IHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		// TODO Auto-generated method stub
+		DirectoryDialog dirDialog = new DirectoryDialog(new Shell(), SWT.MULTI);
+		dirDialog.setFilterPath("/home/harry/");
+		System.out.println(dirDialog.open());
 		return null;
 	}
 

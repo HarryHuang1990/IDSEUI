@@ -22,18 +22,19 @@ public class OpenSelectionListener implements SelectionListener {
 	
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		File target=null;
+		String target = this.resultBean.getDirectory();
 		if(this.mode == OpenMode.FILE){
-			target = new File(this.resultBean.getDirectory(), this.resultBean.getFile());
-		}
-		else if(this.mode == OpenMode.DIRECTORY){
-			target = new File(this.resultBean.getDirectory());
+			target = target + File.separator + this.resultBean.getFile();
 		}
 		
 		try {
-			java.awt.Desktop.getDesktop().open(target);
+			/*
+			 *  1. 处理文件名中有类似空格等特殊字符的情况，直接构造命令字符串会无法执行，因此使用命令字符串数组来解决这个问题，通过将命令和值分开，可以有效执行命令
+			 *  2. 中文乱码的问题，Runtime中输入的字符串编码必须和项目环境编码相同，因此需要将编码转为GBK，命令才能正常执行。
+			 */
+			String[]cmds = new String[]{"xdg-open", new String(target.getBytes("UTF-8"), "GBK")};
+			Runtime.getRuntime().exec(cmds);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
