@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -65,12 +66,23 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		directories2indexLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
 		directories2indexLabel.setLayoutData(directories2indexLabelData);
 		
+		Button browserButton = new Button(directories2indexComposite, SWT.NONE);
+		browserButton.setText("Ìí¼ÓÄ¿Â¼");
+		FormData browserButtonData = new FormData();
+		browserButtonData.top = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING);
+		browserButtonData.right = new FormAttachment(100, -DialogSettingIndex.GROUP_PADDING);
+		browserButtonData.width = 100;
+		browserButtonData.height = 27;
+		browserButton.setLayoutData(browserButtonData);
+		
 		Text directories2indexText = new Text(directories2indexComposite, SWT.NONE | SWT.BORDER);
 		FormData directories2indexTextData = new FormData();
 		directories2indexTextData.top = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING);
 		directories2indexTextData.left = new FormAttachment(0, DialogSettingIndex.INDENT_SPACING);
-		directories2indexTextData.right = new FormAttachment(100, -DialogSettingIndex.GROUP_PADDING);
+		directories2indexTextData.right = new FormAttachment(browserButton, -DialogSettingIndex.GROUP_PADDING);
 		directories2indexText.setLayoutData(directories2indexTextData);
+		
+		
 		
 		// max size of PDF to index (KB)
 		Composite maxPDFSizeComposite = new Composite(composite, SWT.NONE);

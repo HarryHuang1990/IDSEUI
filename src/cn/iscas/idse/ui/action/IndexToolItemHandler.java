@@ -8,6 +8,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Shell;
 
+import cn.iscas.idse.ui.DialogTargetSelection;
+
 public class IndexToolItemHandler implements IHandler {
 
 	@Override
@@ -25,9 +27,8 @@ public class IndexToolItemHandler implements IHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		// TODO Auto-generated method stub
-		DirectoryDialog dirDialog = new DirectoryDialog(new Shell(), SWT.MULTI);
-		dirDialog.setFilterPath("/home/harry/");
-		System.out.println(dirDialog.open());
+		DialogTargetSelection dialog = new DialogTargetSelection(null);
+		dialog.open();
 		return null;
 	}
 
