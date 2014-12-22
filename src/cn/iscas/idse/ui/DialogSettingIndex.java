@@ -4,25 +4,35 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import cn.iscas.idse.config.SystemConfiguration;
+import cn.iscas.idse.ui.action.OpenTargetSelectionAction;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
 import utitilies.IconSelector;
 
 public class DialogSettingIndex extends TitleAreaDialog {
+	public static final String ID = Consts.ID_PREFIX + "DialogSettingIndex";
 	
 	private Image image = IconSelector.getImage(IconSize.SIZE80, FileType.DOC);
+	private Text directories2indexText;
+	private Combo maxPDFSizeText;
+	private Combo maxTXTSizeText;
+	private Combo maxDirectorySizeText;
+	
 	public static int GROUP_PADDING = 5;
 	public static int INDENT_SPACING = 170;
 	public static int ADJACENT_SPACING = 12;
@@ -75,19 +85,24 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		browserButtonData.height = 27;
 		browserButton.setLayoutData(browserButtonData);
 		
-		Text directories2indexText = new Text(directories2indexComposite, SWT.NONE | SWT.BORDER);
+		
+		directories2indexText = new Text(directories2indexComposite, SWT.NONE | SWT.BORDER);
 		FormData directories2indexTextData = new FormData();
 		directories2indexTextData.top = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING);
 		directories2indexTextData.left = new FormAttachment(0, DialogSettingIndex.INDENT_SPACING);
 		directories2indexTextData.right = new FormAttachment(browserButton, -DialogSettingIndex.GROUP_PADDING);
 		directories2indexText.setLayoutData(directories2indexTextData);
+		directories2indexText.setEnabled(false);
+		directories2indexText.setText(SystemConfiguration.targetDirectoryValues);
 		
-		
+		browserButton.addSelectionListener(new OpenTargetSelectionAction(directories2indexText));
 		
 		// max size of PDF to index (KB)
-		Composite maxPDFSizeComposite = new Composite(composite, SWT.NONE);
-		maxPDFSizeComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		Composite maxPDFSizeComposite = new Composite(composite, SWT.NONE );
 		maxPDFSizeComposite.setLayout(new FormLayout());
+		GridData comboCompositeData = new GridData(GridData.FILL_HORIZONTAL);
+		comboCompositeData.heightHint = 43;
+		maxPDFSizeComposite.setLayoutData(comboCompositeData);
 		
 		Label maxPDFSizeLabel = new Label(maxPDFSizeComposite, SWT.NONE);
 		maxPDFSizeLabel.setText("PDF大小上限(KB)：");
@@ -96,17 +111,22 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		maxPDFSizeLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
 		maxPDFSizeLabel.setLayoutData(maxPDFSizeLabelData);
 		
-		Text maxPDFSizeText = new Text(maxPDFSizeComposite, SWT.NONE | SWT.BORDER);
+		maxPDFSizeText = new Combo(maxPDFSizeComposite, SWT.NONE);
 		FormData maxPDFSizeTextData = new FormData();
 		maxPDFSizeTextData.top = new FormAttachment(0, DialogSettingIndex.ADJACENT_SPACING);
 		maxPDFSizeTextData.left = new FormAttachment(0, DialogSettingIndex.INDENT_SPACING);
 		maxPDFSizeTextData.right = new FormAttachment(100, -DialogSettingIndex.GROUP_PADDING);
 		maxPDFSizeText.setLayoutData(maxPDFSizeTextData);
+		int pdfSize = 0;
+		for(int i=0; i<15; i++, pdfSize += 500){
+			maxPDFSizeText.add(pdfSize + "");
+		}
+		maxPDFSizeText.setText(SystemConfiguration.maxSizeAllowed_PDF + "");
 		
 		// max size of Txt to index (KB)
 		Composite maxTXTSizeComposite = new Composite(composite, SWT.NONE);
-		maxTXTSizeComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		maxTXTSizeComposite.setLayout(new FormLayout());
+		maxTXTSizeComposite.setLayoutData(comboCompositeData);
 		
 		Label maxTXTSizeLabel = new Label(maxTXTSizeComposite, SWT.NONE);
 		maxTXTSizeLabel.setText("TXT大小上限(KB)：");
@@ -115,17 +135,22 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		maxTXTSizeLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
 		maxTXTSizeLabel.setLayoutData(maxTXTSizeLabelData);
 		
-		Text maxTXTSizeText = new Text(maxTXTSizeComposite, SWT.NONE | SWT.BORDER);
+		maxTXTSizeText = new Combo(maxTXTSizeComposite, SWT.NONE | SWT.BORDER);
 		FormData maxTXTSizeTextData = new FormData();
 		maxTXTSizeTextData.top = new FormAttachment(0, DialogSettingIndex.ADJACENT_SPACING);
 		maxTXTSizeTextData.left = new FormAttachment(0, DialogSettingIndex.INDENT_SPACING);
 		maxTXTSizeTextData.right = new FormAttachment(100, -DialogSettingIndex.GROUP_PADDING);
 		maxTXTSizeText.setLayoutData(maxTXTSizeTextData);
+		int txtSize = 0;
+		for(int i=0; i<20; i++, txtSize += 50){
+			maxTXTSizeText.add(txtSize + "");
+		}
+		maxTXTSizeText.setText(SystemConfiguration.maxSizeAllowed_TXT + "");
 		
 		// max size of directories to index (files)
 		Composite maxDirectorySizeComposite = new Composite(composite, SWT.NONE);
-		maxDirectorySizeComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		maxDirectorySizeComposite.setLayout(new FormLayout());
+		maxDirectorySizeComposite.setLayoutData(comboCompositeData);
 		
 		Label maxDirectorySizeLabel = new Label(maxDirectorySizeComposite, SWT.NONE);
 		maxDirectorySizeLabel.setText("文件夹文件数上限：");
@@ -134,17 +159,24 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		maxDirectorySizeLabelData.left = new FormAttachment(0, DialogSettingIndex.GROUP_PADDING	);
 		maxDirectorySizeLabel.setLayoutData(maxDirectorySizeLabelData);
 		
-		Text maxDirectorySizeText = new Text(maxDirectorySizeComposite, SWT.NONE | SWT.BORDER);
+		maxDirectorySizeText = new Combo(maxDirectorySizeComposite, SWT.NONE | SWT.BORDER);
 		FormData maxDirectorySizeTextData = new FormData();
 		maxDirectorySizeTextData.top = new FormAttachment(0, DialogSettingIndex.ADJACENT_SPACING);
 		maxDirectorySizeTextData.left = new FormAttachment(0, DialogSettingIndex.INDENT_SPACING);
 		maxDirectorySizeTextData.right = new FormAttachment(100, -DialogSettingIndex.GROUP_PADDING);
 		maxDirectorySizeText.setLayoutData(maxDirectorySizeTextData);
+		int fileNum = 30;
+		for(int i=0; i<10; i++, fileNum += 20){
+			maxDirectorySizeText.add(fileNum + "");
+		}
+		maxDirectorySizeText.setText(SystemConfiguration.maxFileCountPreDirectory + "");
 		
+		// 注册dialog
+		ViewManager.register(DialogSettingIndex.ID, this);
 		
 		return composite;
 	}
-
+	
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		super.createButton(parent, DialogSettingIndex.BUTTON_ID_RUNNING, "Run", true);
@@ -152,5 +184,29 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		super.createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
 	}
 	
+	public String getDirectories2index(){
+		return this.directories2indexText.getText();
+	}
+	public String getMaxPDFSize(){
+		return this.maxPDFSizeText.getText();
+	}
+	public String getMaxTXTSize(){
+		return this.maxTXTSizeText.getText();
+	}
+	public String getMaxDirectorySize(){
+		return this.maxDirectorySizeText.getText();
+	}
 	
+	public void setDirectories2index(String content){
+		this.directories2indexText.setText(content);
+	}
+	public void setMaxPDFSize(String content){
+		this.maxPDFSizeText.setText(content);
+	}
+	public void setMaxTXTSize(String content){
+		this.maxTXTSizeText.setText(content);
+	}
+	public void setMaxDirectorySize(String content){
+		this.maxDirectorySizeText.setText(content);
+	}
 }

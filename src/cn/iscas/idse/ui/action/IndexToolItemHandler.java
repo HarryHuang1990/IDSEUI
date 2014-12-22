@@ -27,8 +27,7 @@ public class IndexToolItemHandler implements IHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		// TODO Auto-generated method stub
-		DialogTargetSelection dialog = new DialogTargetSelection(null);
-		dialog.open();
+		
 		return null;
 	}
 

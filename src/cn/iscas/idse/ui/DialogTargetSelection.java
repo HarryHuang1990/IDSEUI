@@ -16,7 +16,8 @@ import org.eclipse.swt.widgets.Shell;
 import cn.iscas.idse.ui.action.TargetSelectionAction;
 
 public class DialogTargetSelection extends IconAndMessageDialog {
-
+	public static final String ID = Consts.ID_PREFIX + "DialogTargetSelection";
+	
 	public DialogTargetSelection(Shell parentShell) {
 		super(parentShell);
 		// TODO Auto-generated constructor stub
@@ -67,6 +68,9 @@ public class DialogTargetSelection extends IconAndMessageDialog {
 		delButton.setLayoutData(delButtonData);
 		delButton.addSelectionListener(new TargetSelectionAction(targetList));
 	    
+		// ×¢²ádialog
+		ViewManager.register(DialogTargetSelection.ID, this);
+		
 	    return parent;
 	  }
 	

@@ -29,7 +29,7 @@ public class TargetSelectionAction implements SelectionListener {
 			DirectoryDialog dirDialog = new DirectoryDialog(new Shell(), SWT.MULTI);
 			dirDialog.setFilterPath("/home/");
 			String selectedTarget = dirDialog.open();
-			if(this.targetList.indexOf(selectedTarget)==-1){
+			if(selectedTarget != null && this.targetList.indexOf(selectedTarget)==-1){
 				this.targetList.add(selectedTarget);
 			}
 		}

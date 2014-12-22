@@ -9,19 +9,26 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import cn.iscas.idse.config.SystemConfiguration;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
 import utitilies.IconSelector;
 
 public class DialogSettingResult extends TitleAreaDialog {
+	public static final String ID = Consts.ID_PREFIX + "DialogSettingResult";
 	
 	private Image image = IconSelector.getImage(IconSize.SIZE80, FileType.DOC);
+	private Combo resultNumberText;
+	private Combo recommendStepText;
+	private Combo RecommendNumberText;
+	
 	public static int GROUP_PADDING = 5;
 	public static int INDENT_SPACING = 170;
 	public static int ADJACENT_SPACING = 12;
@@ -55,7 +62,9 @@ public class DialogSettingResult extends TitleAreaDialog {
 		
 		// Number of Result returned
 		Composite resultNumberComposite = new Composite(composite, SWT.NONE);
-		resultNumberComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		GridData comboCompositeData = new GridData(GridData.FILL_HORIZONTAL);
+		comboCompositeData.heightHint = 43;
+		resultNumberComposite.setLayoutData(comboCompositeData);
 		resultNumberComposite.setLayout(new FormLayout());	
 		
 		Label resultNumberLabel = new Label(resultNumberComposite, SWT.NONE);
@@ -65,16 +74,20 @@ public class DialogSettingResult extends TitleAreaDialog {
 		resultNumberLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
 		resultNumberLabel.setLayoutData(resultNumberLabelData);
 		
-		Text resultNumberText = new Text(resultNumberComposite, SWT.NONE | SWT.BORDER);
+		Combo resultNumberText = new Combo(resultNumberComposite, SWT.NONE | SWT.BORDER);
 		FormData resultNumberTextData = new FormData();
 		resultNumberTextData.top = new FormAttachment(0, DialogSettingResult.GROUP_PADDING);
 		resultNumberTextData.left = new FormAttachment(0, DialogSettingResult.INDENT_SPACING);
 		resultNumberTextData.right = new FormAttachment(100, -DialogSettingResult.GROUP_PADDING);
 		resultNumberText.setLayoutData(resultNumberTextData);
+		resultNumberText.add("10");
+		resultNumberText.add("20");
+		resultNumberText.add("30");
+		resultNumberText.setText(SystemConfiguration.topN + "");
 		
 		// Recommendation step
 		Composite recommendStepComposite = new Composite(composite, SWT.NONE);
-		recommendStepComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		recommendStepComposite.setLayoutData(comboCompositeData);
 		recommendStepComposite.setLayout(new FormLayout());
 		
 		Label recommendStepLabel = new Label(recommendStepComposite, SWT.NONE);
@@ -84,16 +97,20 @@ public class DialogSettingResult extends TitleAreaDialog {
 		recommendStepLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
 		recommendStepLabel.setLayoutData(recommendStepLabelData);
 		
-		Text recommendStepText = new Text(recommendStepComposite, SWT.NONE | SWT.BORDER);
+		Combo recommendStepText = new Combo(recommendStepComposite, SWT.NONE | SWT.BORDER);
 		FormData recommendStepTextData = new FormData();
 		recommendStepTextData.top = new FormAttachment(0, DialogSettingResult.ADJACENT_SPACING);
 		recommendStepTextData.left = new FormAttachment(0, DialogSettingResult.INDENT_SPACING);
 		recommendStepTextData.right = new FormAttachment(100, -DialogSettingResult.GROUP_PADDING);
 		recommendStepText.setLayoutData(recommendStepTextData);
+		recommendStepText.add("2");
+		recommendStepText.add("3");
+		recommendStepText.add("4");
+		recommendStepText.setText(SystemConfiguration.step + "");
 		
 		// Number of Recommendation
 		Composite RecommendNumberComposite = new Composite(composite, SWT.NONE);
-		RecommendNumberComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		RecommendNumberComposite.setLayoutData(comboCompositeData);
 		RecommendNumberComposite.setLayout(new FormLayout());
 		
 		Label RecommendNumberLabel = new Label(RecommendNumberComposite, SWT.NONE);
@@ -103,13 +120,19 @@ public class DialogSettingResult extends TitleAreaDialog {
 		RecommendNumberLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
 		RecommendNumberLabel.setLayoutData(RecommendNumberLabelData);
 		
-		Text RecommendNumberText = new Text(RecommendNumberComposite, SWT.NONE | SWT.BORDER);
+		Combo RecommendNumberText = new Combo(RecommendNumberComposite, SWT.NONE | SWT.BORDER);
 		FormData RecommendNumberTextData = new FormData();
 		RecommendNumberTextData.top = new FormAttachment(0, DialogSettingResult.ADJACENT_SPACING);
 		RecommendNumberTextData.left = new FormAttachment(0, DialogSettingResult.INDENT_SPACING);
 		RecommendNumberTextData.right = new FormAttachment(100, -DialogSettingResult.GROUP_PADDING);
 		RecommendNumberText.setLayoutData(RecommendNumberTextData);
+		for(int i=3; i<=10; i++){
+			RecommendNumberText.add(""+i);
+		}
+		RecommendNumberText.setText(SystemConfiguration.recommendedDocNumber + "");
 		
+		// ×¢²ádialog
+		ViewManager.register(DialogSettingResult.ID, this);
 		
 		return composite;
 	}
@@ -121,5 +144,23 @@ public class DialogSettingResult extends TitleAreaDialog {
 		super.createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
 	}
 	
+	public String getResultNumber(){
+		return this.resultNumberText.getText();
+	}
+	public String getRecommendStep(){
+		return this.recommendStepText.getText();
+	}
+	public String getRecommendNumber(){
+		return this.RecommendNumberText.getText();
+	}
+	public void setResultNumber(String content){
+		this.resultNumberText.setText(content);
+	}
+	public void setRecommendStep(String content){
+		this.recommendStepText.setText(content);
+	}
+	public void setRecommendNumber(String content){
+		this.RecommendNumberText.setText(content);
+	}
 	
 }
