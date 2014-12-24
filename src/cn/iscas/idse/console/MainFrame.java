@@ -62,8 +62,6 @@ public class MainFrame {
 		   // 创建弹出菜单
 		   PopupMenu popup = new PopupMenu();
 		   
-		   
-		   
 		   //主界面选项
 		   MenuItem mainFrameItem = new MenuItem("open search home");
 		   mainFrameItem.addActionListener(listener);

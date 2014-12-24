@@ -2,6 +2,7 @@ package cn.iscas.idse.ui;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -17,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.config.SystemConfiguration;
+import cn.iscas.idse.index.Index;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
 import utitilies.IconSelector;
@@ -74,7 +76,7 @@ public class DialogSettingResult extends TitleAreaDialog {
 		resultNumberLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
 		resultNumberLabel.setLayoutData(resultNumberLabelData);
 		
-		Combo resultNumberText = new Combo(resultNumberComposite, SWT.NONE | SWT.BORDER);
+		resultNumberText = new Combo(resultNumberComposite, SWT.NONE | SWT.BORDER);
 		FormData resultNumberTextData = new FormData();
 		resultNumberTextData.top = new FormAttachment(0, DialogSettingResult.GROUP_PADDING);
 		resultNumberTextData.left = new FormAttachment(0, DialogSettingResult.INDENT_SPACING);
@@ -97,7 +99,7 @@ public class DialogSettingResult extends TitleAreaDialog {
 		recommendStepLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
 		recommendStepLabel.setLayoutData(recommendStepLabelData);
 		
-		Combo recommendStepText = new Combo(recommendStepComposite, SWT.NONE | SWT.BORDER);
+		recommendStepText = new Combo(recommendStepComposite, SWT.NONE | SWT.BORDER);
 		FormData recommendStepTextData = new FormData();
 		recommendStepTextData.top = new FormAttachment(0, DialogSettingResult.ADJACENT_SPACING);
 		recommendStepTextData.left = new FormAttachment(0, DialogSettingResult.INDENT_SPACING);
@@ -120,7 +122,7 @@ public class DialogSettingResult extends TitleAreaDialog {
 		RecommendNumberLabelData.left = new FormAttachment(0, DialogSettingResult.GROUP_PADDING	);
 		RecommendNumberLabel.setLayoutData(RecommendNumberLabelData);
 		
-		Combo RecommendNumberText = new Combo(RecommendNumberComposite, SWT.NONE | SWT.BORDER);
+		RecommendNumberText = new Combo(RecommendNumberComposite, SWT.NONE | SWT.BORDER);
 		FormData RecommendNumberTextData = new FormData();
 		RecommendNumberTextData.top = new FormAttachment(0, DialogSettingResult.ADJACENT_SPACING);
 		RecommendNumberTextData.left = new FormAttachment(0, DialogSettingResult.INDENT_SPACING);
@@ -142,6 +144,54 @@ public class DialogSettingResult extends TitleAreaDialog {
 		super.createButton(parent, DialogSettingResult.BUTTON_ID_RUNNING, "Run", true);
 		super.createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 		super.createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
+	}
+	
+	@Override
+	protected void okPressed() {
+		if(this.getResultNumber().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置搜索结果数");
+		}
+		else if(this.getRecommendStep().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置推荐步长");
+		}
+		else if(this.getRecommendNumber().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置推荐结果数");
+		}
+		else{
+			SystemConfiguration.setSearchResultNum(this.getResultNumber());;
+			SystemConfiguration.setRecommendStep(this.getRecommendStep());
+			SystemConfiguration.setRecommendDocNum(this.getRecommendNumber());
+			super.okPressed();
+		}
+	}
+	
+
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if(buttonId == DialogSettingResult.BUTTON_ID_RUNNING){
+			if(this.getResultNumber().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置搜索结果数");
+			}
+			else if(this.getRecommendStep().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置推荐步长");
+			}
+			else if(this.getRecommendNumber().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置推荐结果数");
+			}
+			else{
+				SystemConfiguration.setSearchResultNum(this.getResultNumber());;
+				SystemConfiguration.setRecommendStep(this.getRecommendStep());
+				SystemConfiguration.setRecommendDocNum(this.getRecommendNumber());
+				super.buttonPressed(buttonId);
+				Index index = new Index();
+				if(index.isNew()){
+					index.createIndex();
+				}
+				else{
+					index.updateIndex();
+				}
+			}
+		}
 	}
 	
 	public String getResultNumber(){

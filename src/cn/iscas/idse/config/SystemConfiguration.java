@@ -352,6 +352,7 @@ public class SystemConfiguration {
 	public static String getRoot(String pluginID){
 		String path = null;
 		try{
+//			path = System.getProperty("user.dir") + "/";
 			path = FileLocator.toFileURL(Platform.getBundle(pluginID).getEntry("")).getPath();
 			System.out.println(path);
 //			path = path.substring(path.indexOf("/")+1, path.length());
@@ -359,6 +360,126 @@ public class SystemConfiguration {
 			e.printStackTrace();
 		}
 		return path;
+	}
+	
+	public static void setTargetDirectories2Index(String targetDirectories){
+		if(targetDirectories == null || targetDirectories.isEmpty())
+			return;
+		SystemConfiguration.targetDirectoryValues = null;
+		SystemConfiguration.targetDirectories.clear();
+		SystemConfiguration.targetDirectoryValues = targetDirectories;
+		SystemConfiguration.targetDirectories.clear();
+		String[] directories = targetDirectories.split(",");
+		for(String directory : directories){
+			SystemConfiguration.targetDirectories.add(directory);
+		}
+		
+		PropertiesManager.updateProperties("target.directory", SystemConfiguration.targetDirectoryValues);
+	}
+	
+	public static void setTargetDirectories2Index(List<String> targetDirectories){
+		if(targetDirectories == null || targetDirectories.isEmpty())
+			return;
+		
+		String directories = targetDirectories.get(0);
+		for(int i=1; i<targetDirectories.size(); i++){
+			directories += "," + targetDirectories.get(i);
+		}
+		SystemConfiguration.targetDirectoryValues = directories;
+		SystemConfiguration.targetDirectories = targetDirectories;
+		
+		PropertiesManager.updateProperties("target.directory", SystemConfiguration.targetDirectoryValues);
+	}
+	
+	public static void setTargetDirectories2Index(String[] targetDirectories){
+		if(targetDirectories == null || targetDirectories.length == 0)
+			return;
+		
+		SystemConfiguration.targetDirectories.clear();
+		SystemConfiguration.targetDirectories.add(targetDirectories[0]);
+		String directories = targetDirectories[0];
+		for(int i=1; i<targetDirectories.length; i++){
+			directories += "," + targetDirectories[i];
+			SystemConfiguration.targetDirectories.add(targetDirectories[i]);
+		}
+		SystemConfiguration.targetDirectoryValues = directories;
+		
+		PropertiesManager.updateProperties("target.directory", SystemConfiguration.targetDirectoryValues);
+	}
+
+	public static void setPDFSizeUpbound(String PDFUpbound){
+		SystemConfiguration.maxSizeAllowed_PDF = Short.parseShort(PDFUpbound);
+		PropertiesManager.updateProperties("maxSizeAllowed_PDF", PDFUpbound);
+	}
+	
+	public static void setTXTSizeUpbound(String TXTUpbound){
+		SystemConfiguration.maxSizeAllowed_TXT = Short.parseShort(TXTUpbound);
+		PropertiesManager.updateProperties("maxSizeAllowed_TXT", TXTUpbound);
+	}
+	
+	public static void setDirectorySizeUpbound(String DirectoryUpbound){
+		SystemConfiguration.maxFileCountPreDirectory = Short.parseShort(DirectoryUpbound);
+		PropertiesManager.updateProperties("maxFileCountPreDirectory", DirectoryUpbound);
+	}
+	
+	public static void setUserActivityLog(String userLog){
+		SystemConfiguration.userActivityLogFile = userLog;
+		PropertiesManager.updateProperties("userActivityLogFile", userLog);
+	}
+	
+	public static void setMinValidViewPeriod(String minValidViewPeriod){
+		SystemConfiguration.validViewPeriod = Integer.parseInt(minValidViewPeriod);
+		PropertiesManager.updateProperties("validViewPeriod", minValidViewPeriod);
+	}
+	
+	public static void setMinTaskInterval(String minTaskInterval){
+		SystemConfiguration.intervalTaskPeriod = Integer.parseInt(minTaskInterval);
+		PropertiesManager.updateProperties("intervalTaskPeriod", minTaskInterval);
+	}
+	
+	public static void setTaskSimilarity(String similarity){
+		SystemConfiguration.taskSimilarityThreshold = Double.parseDouble(similarity);
+		PropertiesManager.updateProperties("taskSimilarityThreshold", similarity);
+	}
+	
+	public static void setKLThreshold(String KLThreshold){
+		SystemConfiguration.klUpbound = Double.parseDouble(KLThreshold);
+		PropertiesManager.updateProperties("klUpbound", KLThreshold);
+	}
+	
+	public static void setThransferLengthThreshold(String transferLengthThreshold){
+		SystemConfiguration.dMAX_GAMA = Integer.parseInt(transferLengthThreshold);
+		PropertiesManager.updateProperties("dMAX_GAMA", transferLengthThreshold);
+	}
+	
+	public static void setTopicFactor(String topicFactor){
+		SystemConfiguration.topicFactor = Double.parseDouble(topicFactor);
+		PropertiesManager.updateProperties("topicFactor", topicFactor);
+	}
+	
+	public static void setTaskFactor(String taskFactor){
+		SystemConfiguration.taskFactor = Double.parseDouble(taskFactor);
+		PropertiesManager.updateProperties("taskFactor", taskFactor);
+	}
+	
+	public static void setLocationFactor(String locationFactor){
+		SystemConfiguration.locationFactor = Double.parseDouble(locationFactor);
+		PropertiesManager.updateProperties("locationFactor", locationFactor);
+	}
+	
+	public static void setSearchResultNum(String resultNum){
+		SystemConfiguration.topN = Integer.parseInt(resultNum);
+		PropertiesManager.updateProperties("topN", resultNum);
+	}
+	
+	public static void setRecommendStep(String recommendStep){
+		SystemConfiguration.step = Integer.parseInt(recommendStep);
+		PropertiesManager.updateProperties("step", recommendStep);
+	}
+	
+	public static void setRecommendDocNum(String recDocNum){
+		SystemConfiguration.recommendedDocNumber = Integer.parseInt(recDocNum);
+		PropertiesManager.updateProperties("recommendedDocNumber", recDocNum);
 	}
 	
 	public static void main(String args[]){

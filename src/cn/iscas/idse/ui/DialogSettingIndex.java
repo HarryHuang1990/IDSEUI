@@ -2,6 +2,7 @@ package cn.iscas.idse.ui;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -19,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.config.SystemConfiguration;
+import cn.iscas.idse.index.Index;
 import cn.iscas.idse.ui.action.OpenTargetSelectionAction;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
@@ -184,6 +186,63 @@ public class DialogSettingIndex extends TitleAreaDialog {
 		super.createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
 	}
 	
+	@Override
+	protected void okPressed() {
+		if(this.getDirectories2index().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请选择待索引的目录");
+		}
+		else if(this.getMaxDirectorySize().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置文件夹文件数上限");
+		}
+		else if(this.getMaxPDFSize().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置PDF大小上限");
+		}
+		else if(this.getMaxTXTSize().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置TXT大小上限");
+		}
+		else{
+			SystemConfiguration.setTargetDirectories2Index(this.getDirectories2index());
+			SystemConfiguration.setPDFSizeUpbound(this.getMaxPDFSize());
+			SystemConfiguration.setTXTSizeUpbound(this.getMaxTXTSize());
+			SystemConfiguration.setDirectorySizeUpbound(this.getMaxDirectorySize());
+			super.okPressed();
+		}
+	}
+	
+	
+
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if(buttonId == DialogSettingIndex.BUTTON_ID_RUNNING){
+			if(this.getDirectories2index().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请选择待索引的目录");
+			}
+			else if(this.getMaxDirectorySize().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置文件夹文件数上限");
+			}
+			else if(this.getMaxPDFSize().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置PDF大小上限");
+			}
+			else if(this.getMaxTXTSize().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置TXT大小上限");
+			}
+			else{
+				SystemConfiguration.setTargetDirectories2Index(this.getDirectories2index());
+				SystemConfiguration.setPDFSizeUpbound(this.getMaxPDFSize());
+				SystemConfiguration.setTXTSizeUpbound(this.getMaxTXTSize());
+				SystemConfiguration.setDirectorySizeUpbound(this.getMaxDirectorySize());
+				super.buttonPressed(buttonId);
+				Index index = new Index();
+				if(index.isNew()){
+					index.createIndex();
+				}
+				else{
+					index.updateIndex();
+				}
+			}
+		}
+	}
+
 	public String getDirectories2index(){
 		return this.directories2indexText.getText();
 	}

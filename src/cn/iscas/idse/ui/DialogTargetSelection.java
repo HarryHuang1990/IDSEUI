@@ -1,6 +1,7 @@
 package cn.iscas.idse.ui;
 
 import org.eclipse.jface.dialogs.IconAndMessageDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -13,10 +14,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
+import cn.iscas.idse.config.SystemConfiguration;
 import cn.iscas.idse.ui.action.TargetSelectionAction;
 
 public class DialogTargetSelection extends IconAndMessageDialog {
 	public static final String ID = Consts.ID_PREFIX + "DialogTargetSelection";
+	
+	private List targetList;
 	
 	public DialogTargetSelection(Shell parentShell) {
 		super(parentShell);
@@ -36,11 +40,14 @@ public class DialogTargetSelection extends IconAndMessageDialog {
 		tipLabel.setLayoutData(tipData);
 		tipLabel.setText("管理需要建立索引的目录");
 		// 目标目录
-		List targetList = new List(parent, SWT.V_SCROLL  | SWT.H_SCROLL | SWT.MULTI | SWT.BORDER);
+		targetList = new List(parent, SWT.V_SCROLL  | SWT.H_SCROLL | SWT.MULTI | SWT.BORDER);
 		GridData targetListData = new GridData();
 		targetList.setLayoutData(targetListData);
 		targetListData.heightHint = 200;
 		targetListData.widthHint = 250;
+		for(String targetDir : SystemConfiguration.targetDirectories){
+			targetList.add(targetDir);
+		}
 		
 		Composite buttonComposite = new Composite(parent, SWT.NONE );
 		GridLayout buttonCompositeLayout = new GridLayout();
@@ -74,6 +81,20 @@ public class DialogTargetSelection extends IconAndMessageDialog {
 	    return parent;
 	  }
 	
+	@Override
+	protected void okPressed() {
+		// TODO Auto-generated method stub
+		String[] items = this.targetList.getItems();
+		if(items == null || items.length == 0){
+			MessageDialog.openWarning(null, "警告", "请选择待索引的目录");
+		}
+		else{
+			SystemConfiguration.setTargetDirectories2Index(items);
+			((DialogSettingIndex)ViewManager.getView(DialogSettingIndex.ID)).setDirectories2index(SystemConfiguration.targetDirectoryValues);
+			super.okPressed();
+		}
+	}
+
 	@Override
 	protected Image getImage() {
 		// TODO Auto-generated method stub

@@ -60,6 +60,15 @@ public class Index {
 		LDADataBuilder.saveWordListBuffer();
 	}
 	
+	/**
+	 * 判断是新建索引还是更新索引
+	 * @return
+	 */
+	public boolean isNew(){
+		
+		return true;
+	}
+	
 	public static void main(String args[]){
 		Index index = new Index();
 		index.createIndex();

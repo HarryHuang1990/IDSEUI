@@ -1,6 +1,7 @@
 package cn.iscas.idse.ui;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -17,6 +18,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.config.SystemConfiguration;
+import cn.iscas.idse.index.Index;
 import cn.iscas.idse.ui.action.UserLogDirectoryAction;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
@@ -88,7 +90,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		browserButtonData.height = 27;
 		browserButton.setLayoutData(browserButtonData);
 		
-		Text userActivityText = new Text(userActivityComposite, SWT.NONE | SWT.BORDER);
+		userActivityText = new Text(userActivityComposite, SWT.NONE | SWT.BORDER);
 		FormData userActivityTextData = new FormData();
 		userActivityTextData.top = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING);
 		userActivityTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -113,7 +115,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		minDurationLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		minDurationLabel.setLayoutData(minDurationLabelData);
 
-		Combo minDurationText = new Combo(minDurationComposite, SWT.NONE | SWT.BORDER);
+		minDurationText = new Combo(minDurationComposite, SWT.NONE | SWT.BORDER);
 		FormData minDurationTextData = new FormData();
 		minDurationTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		minDurationTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -137,7 +139,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		minIntervalLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		minIntervalLabel.setLayoutData(minIntervalLabelData);
 		
-		Combo minIntervalText = new Combo(minIntervalComposite, SWT.NONE | SWT.BORDER);
+		minIntervalText = new Combo(minIntervalComposite, SWT.NONE | SWT.BORDER);
 		FormData minIntervalTextData = new FormData();
 		minIntervalTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		minIntervalTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -145,7 +147,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		minIntervalText.setLayoutData(minIntervalTextData);
 		int minInterval = 1;
 		for(int i=0; i<30; i++, minInterval++){
-			minIntervalText.add(minInterval + "");
+			minIntervalText.add(minInterval*60 + "");
 		}
 		minIntervalText.setText(SystemConfiguration.intervalTaskPeriod + "");
 		
@@ -161,7 +163,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		similarThresholdLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		similarThresholdLabel.setLayoutData(similarThresholdLabelData);
 		
-		Text similarThresholdText = new Text(similarThresholdComposite, SWT.NONE | SWT.BORDER);
+		similarThresholdText = new Text(similarThresholdComposite, SWT.NONE | SWT.BORDER);
 		FormData similarThresholdTextData = new FormData();
 		similarThresholdTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		similarThresholdTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -181,7 +183,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		KLThresholdLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		KLThresholdLabel.setLayoutData(KLThresholdLabelData);
 		
-		Text KLThresholdText = new Text(KLThresholdComposite, SWT.NONE | SWT.BORDER);
+		KLThresholdText = new Text(KLThresholdComposite, SWT.NONE | SWT.BORDER);
 		FormData KLThresholdTextData = new FormData();
 		KLThresholdTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		KLThresholdTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -201,7 +203,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		TransferLengthLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		TransferLengthLabel.setLayoutData(TransferLengthLabelData);
 		
-		Text TransferLengthText = new Text(TransferLengthComposite, SWT.NONE | SWT.BORDER);
+		TransferLengthText = new Text(TransferLengthComposite, SWT.NONE | SWT.BORDER);
 		FormData TransferLengthTextData = new FormData();
 		TransferLengthTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		TransferLengthTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -221,7 +223,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		topicFactorLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		topicFactorLabel.setLayoutData(topicFactorLabelData);
 		
-		Text topicFactorText = new Text(topicFactorComposite, SWT.NONE | SWT.BORDER);
+		topicFactorText = new Text(topicFactorComposite, SWT.NONE | SWT.BORDER);
 		FormData topicFactorTextData = new FormData();
 		topicFactorTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		topicFactorTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -241,7 +243,7 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		TaskFactorLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		TaskFactorLabel.setLayoutData(TaskFactorLabelData);
 		
-		Text TaskFactorText = new Text(TaskFactorComposite, SWT.NONE | SWT.BORDER);
+		TaskFactorText = new Text(TaskFactorComposite, SWT.NONE | SWT.BORDER);
 		FormData TaskFactorTextData = new FormData();
 		TaskFactorTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		TaskFactorTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -255,13 +257,13 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		LocationFactorComposite.setLayout(new FormLayout());
 		
 		Label LocationFactorLabel = new Label(LocationFactorComposite, SWT.NONE);
-		LocationFactorLabel.setText("Location关系贡献银子：");
+		LocationFactorLabel.setText("Location关系贡献因子：");
 		FormData LocationFactorLabelData = new FormData();
 		LocationFactorLabelData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		LocationFactorLabelData.left = new FormAttachment(0, DialogSettingKnowledge.GROUP_PADDING	);
 		LocationFactorLabel.setLayoutData(LocationFactorLabelData);
 		
-		Text LocationFactorText = new Text(LocationFactorComposite, SWT.NONE | SWT.BORDER);
+		LocationFactorText = new Text(LocationFactorComposite, SWT.NONE | SWT.BORDER);
 		FormData LocationFactorTextData = new FormData();
 		LocationFactorTextData.top = new FormAttachment(0, DialogSettingKnowledge.ADJACENT_SPACING);
 		LocationFactorTextData.left = new FormAttachment(0, DialogSettingKnowledge.INDENT_SPACING);
@@ -280,6 +282,101 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 		super.createButton(parent, DialogSettingKnowledge.BUTTON_ID_RUNNING, "Run", true);
 		super.createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 		super.createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, true);
+	}
+	
+	@Override
+	protected void okPressed() {
+		if(this.getUserActivity().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请定位用户日志目录");
+		}
+		else if(this.getMinDuration().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置最短有效行为时长");
+		}
+		else if(this.getMinInterval().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置新任务启动最小间隔");
+		}
+		else if(this.getSimilarThreshold().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置task相似度阈值");
+		}
+		else if(this.getKLThreshold().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置KL散度阈值");
+		}
+		else if(this.getTransferLength().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置转移距离阈值");
+		}
+		else if(this.getTopicFactor().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置Topic关系贡献因子");
+		}
+		else if(this.getTaskFactor().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置Task关系贡献因子");
+		}
+		else if(this.getLocationFactor().trim().isEmpty()){
+			MessageDialog.openWarning(null, "警告", "请设置Location关系贡献因子");
+		}
+		else{
+			SystemConfiguration.setUserActivityLog(this.getUserActivity());
+			SystemConfiguration.setMinValidViewPeriod(this.getMinDuration());
+			SystemConfiguration.setMinTaskInterval(this.getMinInterval());
+			SystemConfiguration.setTaskSimilarity(this.getSimilarThreshold());
+			SystemConfiguration.setKLThreshold(this.getKLThreshold());
+			SystemConfiguration.setThransferLengthThreshold(this.getTransferLength());
+			SystemConfiguration.setTopicFactor(this.getTopicFactor());
+			SystemConfiguration.setTaskFactor(this.getTaskFactor());
+			SystemConfiguration.setLocationFactor(this.getLocationFactor());
+			super.okPressed();
+		}
+	}
+	
+	@Override
+	protected void buttonPressed(int buttonId) {
+		if(buttonId == DialogSettingKnowledge.BUTTON_ID_RUNNING){
+			if(this.getUserActivity().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请定位用户日志目录");
+			}
+			else if(this.getMinDuration().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置最短有效行为时长");
+			}
+			else if(this.getMinInterval().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置新任务启动最小间隔");
+			}
+			else if(this.getSimilarThreshold().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置task相似度阈值");
+			}
+			else if(this.getKLThreshold().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置KL散度阈值");
+			}
+			else if(this.getTransferLength().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置转移距离阈值");
+			}
+			else if(this.getTopicFactor().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置Topic关系贡献因子");
+			}
+			else if(this.getTaskFactor().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置Task关系贡献因子");
+			}
+			else if(this.getLocationFactor().trim().isEmpty()){
+				MessageDialog.openWarning(null, "警告", "请设置Location关系贡献因子");
+			}
+			else{
+				SystemConfiguration.setUserActivityLog(this.getUserActivity());
+				SystemConfiguration.setMinValidViewPeriod(this.getMinDuration());
+				SystemConfiguration.setMinTaskInterval(this.getMinInterval());
+				SystemConfiguration.setTaskSimilarity(this.getSimilarThreshold());
+				SystemConfiguration.setKLThreshold(this.getKLThreshold());
+				SystemConfiguration.setThransferLengthThreshold(this.getTransferLength());
+				SystemConfiguration.setTopicFactor(this.getTopicFactor());
+				SystemConfiguration.setTaskFactor(this.getTaskFactor());
+				SystemConfiguration.setLocationFactor(this.getLocationFactor());
+				super.buttonPressed(buttonId);
+				Index index = new Index();
+				if(index.isNew()){
+					index.createIndex();
+				}
+				else{
+					index.updateIndex();
+				}
+			}
+		}
 	}
 	
 	public String getUserActivity(){
