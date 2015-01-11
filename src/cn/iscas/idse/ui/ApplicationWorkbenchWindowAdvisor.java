@@ -21,6 +21,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(new Point(400, 300));
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(false);
+        configurer.setShowProgressIndicator(true);
         configurer.setTitle("搜索你的电脑资源"); //$NON-NLS-1$
     }
 }

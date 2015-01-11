@@ -20,6 +20,7 @@ public class Index {
 	 * execute index generation from here
 	 */
 	public void createIndex(){
+		SystemConfiguration.setIndexStatusBuilt(1);	//标记索引创建操作已执行
 		WordSegmentation wordSegmentor = (WordSegmentation)InstanceManager.getInstance(InstanceManager.CLASS_WORDSEGMENTATION);
 		wordSegmentor.initialize();
 		for(int i=0; i<SystemConfiguration.targetDirectories.size(); i++){
@@ -41,6 +42,8 @@ public class Index {
 		InputDataForLDA LDADataBuilder = new InputDataForLDA(100000);
 		LDADataBuilder.executeFormat();
 		LDADataBuilder.saveWordListBuffer();
+		
+		SystemConfiguration.setIndexStatusSuccess(1); // 标记索引创建成功
 	}
 	/**
 	 * execute index updating from here
@@ -58,6 +61,8 @@ public class Index {
 		InputDataForLDA LDADataBuilder = new InputDataForLDA(100000);
 		LDADataBuilder.executeFormat();
 		LDADataBuilder.saveWordListBuffer();
+		
+		SystemConfiguration.setIndexStatusSuccess(1); // 标记索引更新成功
 	}
 	
 	/**

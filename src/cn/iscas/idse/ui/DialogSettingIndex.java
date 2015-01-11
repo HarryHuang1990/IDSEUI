@@ -1,5 +1,9 @@
 package cn.iscas.idse.ui;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -21,6 +25,8 @@ import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.config.SystemConfiguration;
 import cn.iscas.idse.index.Index;
+import cn.iscas.idse.rank.MatrixWriter;
+import cn.iscas.idse.rank.PersonalRank;
 import cn.iscas.idse.ui.action.OpenTargetSelectionAction;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
@@ -232,13 +238,36 @@ public class DialogSettingIndex extends TitleAreaDialog {
 				SystemConfiguration.setTXTSizeUpbound(this.getMaxTXTSize());
 				SystemConfiguration.setDirectorySizeUpbound(this.getMaxDirectorySize());
 				super.buttonPressed(buttonId);
-				Index index = new Index();
-				if(index.isNew()){
-					index.createIndex();
-				}
-				else{
-					index.updateIndex();
-				}
+				
+				Job indexJob = new Job("正在索引......"){
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask("正在索引......", IProgressMonitor.UNKNOWN);
+						boolean toUpdate = SystemConfiguration.getIndexStatus();
+						SystemConfiguration.setIndexStatusSuccess(0);
+						if(toUpdate){
+							Index indexer = new Index();
+							indexer.updateIndex();
+						}
+						else{
+							SystemConfiguration.resetIndexDatabaseEnvironment();
+							SystemConfiguration.setIndexStatusBuilt(0);
+							Index indexer = new Index();
+							indexer.createIndex();
+						}
+						
+						MatrixWriter graphBuilder = new MatrixWriter();
+						graphBuilder.run();
+						PersonalRank pageRankRunner = new PersonalRank();
+						pageRankRunner.run();
+						return Status.OK_STATUS;
+					}
+					
+				};
+//				indexJob.setUser(true);
+				indexJob.schedule();
+				
 			}
 		}
 	}

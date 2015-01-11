@@ -1,5 +1,9 @@
 package cn.iscas.idse.ui;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -19,6 +23,8 @@ import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.config.SystemConfiguration;
 import cn.iscas.idse.index.Index;
+import cn.iscas.idse.rank.MatrixWriter;
+import cn.iscas.idse.rank.PersonalRank;
 import cn.iscas.idse.ui.action.UserLogDirectoryAction;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
@@ -368,13 +374,22 @@ public class DialogSettingKnowledge extends TitleAreaDialog {
 				SystemConfiguration.setTaskFactor(this.getTaskFactor());
 				SystemConfiguration.setLocationFactor(this.getLocationFactor());
 				super.buttonPressed(buttonId);
-				Index index = new Index();
-				if(index.isNew()){
-					index.createIndex();
-				}
-				else{
-					index.updateIndex();
-				}
+				
+				Job indexJob = new Job("正在生成图谱......"){
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask("正在生成图谱......", IProgressMonitor.UNKNOWN);
+						MatrixWriter graphBuilder = new MatrixWriter();
+						graphBuilder.run();
+						PersonalRank pageRankRunner = new PersonalRank();
+						pageRankRunner.run();
+						return Status.OK_STATUS;
+					}
+					
+				};
+//				indexJob.setUser(true);
+				indexJob.schedule();
 			}
 		}
 	}

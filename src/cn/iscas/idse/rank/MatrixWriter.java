@@ -40,7 +40,7 @@ public class MatrixWriter {
 	private Map<Integer, TopicRelation> topicRelationGraph;
 	private Map<Integer, LocationRelation> locationRelationGraph;
 //	private Map<Integer, TaskRelation> taskRelationGraph;
-	private Map<Integer, PageRankGraph> pageRankGraph = new TreeMap<Integer, PageRankGraph>();
+	private Map<Integer, PageRankGraph> pageRankGraph;
 	private int pageRankCount = 0;
 	private int updateCount = 0;
 	
@@ -72,26 +72,27 @@ public class MatrixWriter {
 		this.getRecommends();
 		this.writePageRankGraph();
 		
-//		this.updateRecommends();
 	}
 	
-//	public void updateRecommends(){
-//		log.info("serching relevent candidates...");
-//		IndexReader reader = new IndexReader();
-//		this.pageRankGraph = reader.getPageRankGraph();
-//		for(Entry<Integer, PageRankGraph> docPageRankNode : this.pageRankGraph.entrySet()){
-//			this.recommendReleventDocuments(docPageRankNode.getValue());
-//		}
-//		this.updatePageRankGraph();
-//	}
-//	
+	
+	public void updateRecommends(){
+		log.info("updating recommends...");
+		IndexReader reader = new IndexReader();
+		this.pageRankGraph = reader.getPageRankGraph();
+		for(Entry<Integer, PageRankGraph> docPageRankNode : this.pageRankGraph.entrySet()){
+			this.recommendReleventDocuments(docPageRankNode.getValue());
+		}
+		// update the PageRankGraph in Berkeley DB
+		this.writePageRankGraph();
+	}
+	
 //	public void updatePageRankGraph(){
 //		for(Entry<Integer, PageRankGraph> docPageRankNode : this.pageRankGraph.entrySet()){
 //			this.pageRankGraphAccessor.getPrimaryDocumentID().putNoReturn(docPageRankNode.getValue());
 //		}
 //	}
 	
-	public void releaseSpace(){
+	private void releaseSpace(){
 		this.topicRelationGraph = null;
 //		this.taskRelationGraph = null;
 		this.locationRelationGraph = null;
@@ -100,7 +101,7 @@ public class MatrixWriter {
 	/**
 	 * Recommend 5 most related documents for every documents. 
 	 */
-	public void getRecommends(){
+	private void getRecommends(){
 		log.info("serching relevent candidates...");
 		int finished = 0;
 		int total = this.pageRankGraph.size();
@@ -116,7 +117,7 @@ public class MatrixWriter {
 	 * @param score
 	 * @param pageRankGraph
 	 */
-	public void recommendReleventDocuments(PageRankGraph pageRankGraph){
+	private void recommendReleventDocuments(PageRankGraph pageRankGraph){
 		/*
 		 * key : candidate document ID
 		 * value : transfer probability
@@ -131,6 +132,8 @@ public class MatrixWriter {
 		});
 		int step = 0;
 		int stopStep = 1;
+		if(!pageRankGraph.getRecommendedDocs().isEmpty()) 
+			pageRankGraph.getRecommendedDocs().clear();
 		if(pageRankGraph.getRelatedDocumentIDs().size() < SystemConfiguration.neightborThreshold)
 			stopStep = SystemConfiguration.step;
 		this.recursionSearch(candidatesProbsSum, pageRankGraph, step, stopStep, pageRankGraph.getDocumentID(), -1, 1);
@@ -149,7 +152,7 @@ public class MatrixWriter {
 	/**
 	 * search candidate documents and calculate the transfer probability recursively. 
 	 */
-	public void recursionSearch(
+	private void recursionSearch(
 			Map<Integer, Double> candidatesProbsSum, 
 			PageRankGraph pageRankGraph, 
 			int step,
@@ -176,7 +179,7 @@ public class MatrixWriter {
 		}
 	}
 	
-	public void addTransferProbability(
+	private void addTransferProbability(
 			int step,
 			int docID, 
 			double probs, 
@@ -193,7 +196,7 @@ public class MatrixWriter {
 	/**
 	 * integrate the 3 relation graph
 	 */
-	public void getPageRankGraph(){
+	private void getPageRankGraph(){
 		log.info("generate PageRank graph...");
 		IndexReader indexReader = new IndexReader();
 		Set<Integer> docIDSet = indexReader.getDocumentIDs();
@@ -232,7 +235,10 @@ public class MatrixWriter {
 		}
 	}
 	
-	public void addToPageRankGraph(int docID1, int docID2, double score){
+	private void addToPageRankGraph(int docID1, int docID2, double score){
+		if(this.pageRankGraph == null) 
+			this.pageRankGraph = new TreeMap<Integer, PageRankGraph>();
+		
 		if(this.pageRankGraph.containsKey(docID1)){
 			this.pageRankGraph.get(docID1).putNewRelatedDoc(docID2, score);
 		}
@@ -248,16 +254,16 @@ public class MatrixWriter {
 		}
 	}
 	
-	public double getTaskRelationScore(int freq){
+	private double getTaskRelationScore(int freq){
 		return (Math.log(freq*freq + 1)/Math.log(4)) / (1 + Math.log(freq*freq + 1)/Math.log(4));
 //		return Math.pow(freq + 1.0, 0.25) / (1 + Math.pow(freq + 1.0, 0.25));
 	}
 	
-	public double getTopicRelationScore(double jsValue){
+	private double getTopicRelationScore(double jsValue){
 		return 1 / Math.pow(Math.E, jsValue);
 	}
 	
-	public double getIntegratedScore(double taskScore, double locationScore, double topicScore){
+	private double getIntegratedScore(double taskScore, double locationScore, double topicScore){
 		return taskScore * SystemConfiguration.taskFactor + 
 				locationScore * SystemConfiguration.locationFactor + 
 				topicScore * SystemConfiguration.topicFactor;
@@ -266,7 +272,7 @@ public class MatrixWriter {
 	/**
 	 * convert pageRank relatedScore to transfer probability
 	 */
-	public void convertScoreToProbs(){
+	private void convertScoreToProbs(){
 		log.info("Converting Score to transfer probability...");
 		this.pageRankGraph.clear();
 		this.pageRankGraph.putAll(this.pageRankGraphAccessor.getPrimaryDocumentID().map());
@@ -281,7 +287,7 @@ public class MatrixWriter {
 	/**
 	 * write pageRank graph into the Berkeley DB
 	 */
-	public void writePageRankGraph(){
+	private void writePageRankGraph(){
 		log.info("saving PageRankGraph... size0="+this.pageRankGraph.size());
 //		this.deletePageRankGraph();
 		for(Entry<Integer, PageRankGraph>entry : this.pageRankGraph.entrySet()){
@@ -290,7 +296,7 @@ public class MatrixWriter {
 		log.info("pageRank graph DONE.");
 	}
 	
-	public void updatePageRankGraph(){
+	private void updatePageRankGraph(){
 		this.updateCount++;
 		if(this.updateCount == 1){
 			this.deletePageRankGraph();
@@ -336,7 +342,7 @@ public class MatrixWriter {
 	/**
 	 * write topic relation matrix into the Berkeley DB
 	 */
-	public void writeTopicRelationMatrix(){
+	private void writeTopicRelationMatrix(){
 		this.deleteTopicRelationMatrix();
 		this.getTopicRelationMatrix();
 		log.info("saving...");
@@ -367,7 +373,7 @@ public class MatrixWriter {
 	/**
 	 * write location relation matrix into the Berkeley DB
 	 */
-	public void writeLocationRelationMatrix(){
+	private void writeLocationRelationMatrix(){
 		this.deleteLocationRelationMatrix();
 		this.getLocationRelationMatrix();
 		log.info("saving...");

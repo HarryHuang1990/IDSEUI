@@ -1,5 +1,9 @@
 package cn.iscas.idse.ui;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -19,6 +23,8 @@ import org.eclipse.swt.widgets.Text;
 
 import cn.iscas.idse.config.SystemConfiguration;
 import cn.iscas.idse.index.Index;
+import cn.iscas.idse.rank.MatrixWriter;
+import cn.iscas.idse.rank.PersonalRank;
 import cn.iscas.idse.ui.bean.IconSize;
 import cn.iscas.idse.ui.bean.FileType;
 import utitilies.IconSelector;
@@ -183,13 +189,21 @@ public class DialogSettingResult extends TitleAreaDialog {
 				SystemConfiguration.setRecommendStep(this.getRecommendStep());
 				SystemConfiguration.setRecommendDocNum(this.getRecommendNumber());
 				super.buttonPressed(buttonId);
-				Index index = new Index();
-				if(index.isNew()){
-					index.createIndex();
-				}
-				else{
-					index.updateIndex();
-				}
+
+				Job indexJob = new Job("正在更新推荐结果......"){
+
+					@Override
+					protected IStatus run(IProgressMonitor monitor) {
+						monitor.beginTask("正在更新推荐结果......", IProgressMonitor.UNKNOWN);
+						MatrixWriter graphBuilder = new MatrixWriter();
+						graphBuilder.updateRecommends();
+						return Status.OK_STATUS;
+					}
+					
+				};
+//				indexJob.setUser(true);
+				indexJob.schedule();
+				
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package cn.iscas.idse.config;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,6 +165,14 @@ public class SystemConfiguration {
 	 */
 	public static int ServerPort = 8081;
 	
+	/**
+	 * 索引是否创建， 0-未创建，1-未创建
+	 */
+	public static int IndexStatusBuilt=0;
+	/**
+	 * 索引是否创建成功，0-未成功创建，1-成功创建
+	 */
+	public static int IndexStatusSuccess=0;
 	
 	public static TermLemmatizer lemmatizer = null;
 	public static StopWordFilter stopWordFilter = null;
@@ -185,6 +195,12 @@ public class SystemConfiguration {
 		String formatCategory = "";
 		String formatCategorySplits[] = null;
 		
+		
+		/*
+		 * 加载索引状态参数
+		 */
+		IndexStatusBuilt = Integer.parseInt(PropertiesManager.getKeyValue("index.status.built"));
+		IndexStatusSuccess = Integer.parseInt(PropertiesManager.getKeyValue("index.status.success"));
 		
 		/*
 		 * 加载文件类型后缀和插件（类名）
@@ -480,6 +496,68 @@ public class SystemConfiguration {
 	public static void setRecommendDocNum(String recDocNum){
 		SystemConfiguration.recommendedDocNumber = Integer.parseInt(recDocNum);
 		PropertiesManager.updateProperties("recommendedDocNumber", recDocNum);
+	}
+	
+	public static void setIndexStatusBuilt(int indexStatusBuilt){
+		SystemConfiguration.IndexStatusBuilt = indexStatusBuilt;
+		PropertiesManager.updateProperties("index.status.built", indexStatusBuilt + "");
+	}
+	
+	public static void setIndexStatusSuccess(int indexStatusSuccess){
+		SystemConfiguration.IndexStatusSuccess = indexStatusSuccess;
+		PropertiesManager.updateProperties("index.status.success", indexStatusSuccess + "");
+	}
+	
+	public static void resetIndexDatabaseEnvironment(){
+		//删除索引目录
+		System.out.println(SystemConfiguration.rootPath+"database");
+		try {
+			String target = SystemConfiguration.rootPath + "database";
+			String[]cmds = new String[]{"rm", "-rf",  new String(target.getBytes("UTF-8"), "GBK")};
+			Runtime.getRuntime().exec(cmds).waitFor();
+		} catch (IOException | InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		//重建索引目录
+		File databaseDirectory = new File(SystemConfiguration.rootPath, "database");
+		System.out.println("rebuild " + databaseDirectory.mkdir());
+		
+		
+		SystemConfiguration.database = new DBManager();
+		/*
+		 * 加载文件格式类别和文件格式列表
+		 */
+		String formatCategory = PropertiesManager.getKeyValue("format.category");
+		String[] formatCategorySplits = formatCategory.split(",");
+		
+		String type = "";
+		String typeSplits[] = null;
+		CategoryAccessor categoryAccessor = AccessorFactory.getCategoryAccessor(SystemConfiguration.database.getIndexStore());
+		FileTypeAccessor fileTypeAccessor = AccessorFactory.getFileTypeAccessor(SystemConfiguration.database.getIndexStore());
+		SystemConfiguration.fileTypeBuff.clear();
+		for(int i=0; i<formatCategorySplits.length; i++){
+			if(!categoryAccessor.getPrimaryCategoryID().contains((byte)(i+1))){
+				categoryAccessor.getPrimaryCategoryID().putNoReturn(new Category((byte)(i+1), formatCategorySplits[i]));
+			}
+			type = PropertiesManager.getKeyValue("format.category." + formatCategorySplits[i]);
+			typeSplits = type.split(",");
+			for(int j=0; j<typeSplits.length; j++){
+				SystemConfiguration.fileTypeBuff.put(typeSplits[j], new FileType(typeSplits[j], (byte)(i+1)));
+			}
+		}
+	}
+	
+	/**
+	 * 返回索引创建状态
+	 * true - 可更新，false - 不可更新
+	 */
+	public static boolean getIndexStatus(){
+		
+		if(SystemConfiguration.IndexStatusBuilt == 1 && SystemConfiguration.IndexStatusSuccess == 1)
+			return true;
+		
+		return false;
+		
 	}
 	
 	public static void main(String args[]){
