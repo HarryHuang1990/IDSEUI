@@ -139,17 +139,17 @@ public class Search {
 	}
 	
 	/**
-	 * sort the topN relevent result with pageRank score (view as secondary sort) . and return the new sort.
+	 * sort the topN relevant result with pageRank score (view as secondary sort) . and return the new sort.
 	 * topN(default 20) is set in the {@link cn.iscas.idse.config.SystemConfiguration}.
-	 * @param releventResult
+	 * @param relevantResult
 	 * @return
 	 */
-	public QueryResult getFinalScoreOfTopN(QueryResult releventResult){
-		if(releventResult != null){
-			List<Score> releventList = releventResult.getTopK(SystemConfiguration.topN);
-			releventResult.clear();
+	public QueryResult getFinalScoreOfTopN(QueryResult relevantResult){
+		if(relevantResult != null){
+			List<Score> relevantList = relevantResult.getTopK(SystemConfiguration.topN);
+			relevantResult.clear();
 			Map<Integer, List<Score>> secondarySort = new LinkedHashMap<Integer, List<Score>>();
-			for(Score score : releventList){
+			for(Score score : relevantList){
 				PageRankGraph pageRankGraph = this.indexReader.getPageRankGraphByID(score.getDocID());
 				if(pageRankGraph != null){
 					double cosin = score.getScore();
@@ -157,13 +157,13 @@ public class Search {
 					// get top5 most related documents
 					score.setMostRelatedDocs(pageRankGraph.getRecommendedDocs());
 					System.out.println(cosin + "\t" + score.getScore() + "\t" + indexReader.getAbsolutePathOfDocument(score.getDocID()));
-					releventResult.put(score);
+					relevantResult.put(score);
 				}
 			}
 			
 //			int i=0;
 //			int key=1;
-//			for(Score score : releventList){
+//			for(Score score : relevantList){
 //				i++;
 //				PageRankGraph pageRankGraph = this.indexReader.getPageRankGraphByID(score.getDocID());
 //				if(pageRankGraph != null){
@@ -190,11 +190,11 @@ public class Search {
 //				for(Score score : secList.getValue()){
 //					System.out.println(secList.getKey() + "\t" + score.getScore() + "\t" + indexReader.getAbsolutePathOfDocument(score.getDocID()));
 //					score.setScore(1.0/(++rank));
-//					releventResult.put(score);
+//					relevantResult.put(score);
 //				}
 //			}
 			
-//			for(Score score : releventList){
+//			for(Score score : relevantList){
 //				PageRankGraph pageRankGraph = this.indexReader.getPageRankGraphByID(score.getDocID());
 //				if(pageRankGraph != null){
 //					double cosin = score.getScore();
@@ -221,11 +221,11 @@ public class Search {
 //				for(Score score : secList.getValue()){
 //					System.out.println(secList.getKey() + "\t" + score.getScore() + "\t" + indexReader.getAbsolutePathOfDocument(score.getDocID()));
 //					score.setScore(1.0/(++rank));
-//					releventResult.put(score);
+//					relevantResult.put(score);
 //				}
 //			}
 		}
-		return releventResult;
+		return relevantResult;
 	}
 	
 
